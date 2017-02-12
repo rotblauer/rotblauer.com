@@ -1,24 +1,42 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Ios on Rotblauer, LLC</title>
+    <title>Ios on Rotblauer &amp; Co.</title>
     <link>http://rotblauer.com/ios/index.xml</link>
-    <description>Recent content in Ios on Rotblauer, LLC</description>
+    <description>Recent content in Ios on Rotblauer &amp; Co.</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 12 Feb 2017 13:54:56 +0100</lastBuildDate>
+    <lastBuildDate>Sun, 12 Feb 2017 17:06:19 +0100</lastBuildDate>
     <atom:link href="http://rotblauer.com/ios/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
-      <title>Spoop</title>
+      <title>Blackjacked</title>
+      <link>http://rotblauer.com/ios/blackjacked/</link>
+      <pubDate>Sun, 12 Feb 2017 17:06:19 +0100</pubDate>
+      
+      <guid>http://rotblauer.com/ios/blackjacked/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
       <link>http://rotblauer.com/ios/spoop/</link>
       <pubDate>Sun, 12 Feb 2017 13:54:56 +0100</pubDate>
       
       <guid>http://rotblauer.com/ios/spoop/</guid>
-      <description>&lt;p&gt;It is life.&lt;/p&gt;
+      <description>
 
-&lt;pre&gt;&lt;code class=&#34;language-go&#34;&gt;go func() {fmt.Println(&amp;quot;alright alright alright&amp;quot;)}()
-&lt;/code&gt;&lt;/pre&gt;
+  &lt;img src=&#34;http://rotblauer.com/img/rbapps/spoop/screenshots/ios///Simulator%20Screen%20Shot%206%20Jun%202016,%2009.32.41.png&#34; alt=&#34;&#34; class=&#34;img-fluid&#34;&gt;
+
+  &lt;img src=&#34;http://rotblauer.com/img/rbapps/spoop/screenshots/ios///Simulator%20Screen%20Shot%206%20Jun%202016,%2009.32.51.png&#34; alt=&#34;&#34; class=&#34;img-fluid&#34;&gt;
+
+  &lt;img src=&#34;http://rotblauer.com/img/rbapps/spoop/screenshots/ios///Simulator%20Screen%20Shot%206%20Jun%202016,%2009.33.04.png&#34; alt=&#34;&#34; class=&#34;img-fluid&#34;&gt;
+
+  &lt;img src=&#34;http://rotblauer.com/img/rbapps/spoop/screenshots/ios///Simulator%20Screen%20Shot%206%20Jun%202016,%2009.33.13.png&#34; alt=&#34;&#34; class=&#34;img-fluid&#34;&gt;
+
+  &lt;img src=&#34;http://rotblauer.com/img/rbapps/spoop/screenshots/ios///Simulator%20Screen%20Shot%206%20Jun%202016,%2009.33.37.png&#34; alt=&#34;&#34; class=&#34;img-fluid&#34;&gt;
+
+
 </description>
     </item>
     

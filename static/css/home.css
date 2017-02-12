@@ -3,7 +3,7 @@
 	margin: 0;
 }
 .home .cover {
-	background-image: url("/img/bison-sm.jpg");
+	background-image: url("/img/fast/bison.jpg");
 	background-size: cover;
 	background-position: center center;
 	height: 100vh;
