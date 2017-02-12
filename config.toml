@@ -1,4 +1,4 @@
-baseurl = "http://example.org/"
+baseurl = "http://rotblauer.com/"
 languageCode = "en-us"
-title = "My New Hugo Site"
+title = "Rotblauer, LLC"
 theme = "cut-and-paste"
