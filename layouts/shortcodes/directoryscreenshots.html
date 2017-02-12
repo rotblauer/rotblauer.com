@@ -2,8 +2,8 @@
 {{- $path := .Get "path" -}}
 {{- $files := readDir $path -}}
 {{- range $files }}
-<div class="col-sm-4">
+
   <img src="{{ $pathURL }}/{{ .Name | relURL }}" alt="" class="img-fluid">
-</div>
+
 {{- end }}
 

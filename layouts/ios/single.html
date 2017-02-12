@@ -1,49 +1,53 @@
 {{ partial "header.html" . }}
 
+<div class="row py-2">
+	<div class="col-3">
+		<a href="/"><small class="text-primary">/ home </small></a>
+		<a href="/ios"><small class="text-primary">/ all apps</small></a>
+	</div>
+	{{ range $.Site.Pages }}
+	<div class="col-1">
+		<a href="{{ .RelPermalink }}">
+			<img src="{{ .Params.icon_path }}" alt="" class="img-fluid">
+		</a>
+	</div>
+	{{ end }}
+</div>
+
 <div class="section">
-	<div class="row p-y-3" style="background-color:{{ .Params.bg_color }}">
-		
-			<!-- app image left -->
-			<div class="col-xs-3">
+	<div class="row my-3">
+			<div class="col-3">
 				<img src="{{ .Params.icon_path }}" alt="" class="img-fluid">
 			</div>
-
-			<!-- app content center -->
-			<div class="col-xs-9 col-sm-6">
-				<h2 style="color: {{ .Params.primary_color }};">{{ .Params.name }}</h2>
-				<p class="lead" style="color: {{ .Params.secondary_color }};">{{ .Params.description }}</p>
-				<p class="text-muted">{{ .Params.abstract }}</p>
-			</div>
-			
-			<!-- app store link right -->
-			<div class="col-sm-3">
-				{{ .Params.itunes_link }}
-			</div>
-
-	</div>
-
-	<div class="row">
-		<!-- TODO screenshots -->
-	</div>
 	
-	<div class="row">
-		{{ .Content }}
+			<!-- app content center -->
+			<div class="col-9 ios-single-content">
+				<span class="fold-here-instructions">Final step!</span>
+
+				<section>
+					<h2 style="color: {{ .Params.primary_color }};">{{ .Params.name }}</h2>
+					<p class="lead" style="color: {{ .Params.secondary_color }};">{{ .Params.description }}</p>
+					<small class="text-muted">{{ .Params.abstract }}</small>
+				</section>
+				<section class="p-2">
+					<span class="ios-repo-link ios-github-link">
+						<a href="{{ .Params.github_link }}">
+							<i class="octicon octicon-mark-github"></i>
+							{{ .Params.github_link }}
+						</a>
+					</span>
+					<br>
+					<span class="ios-repo-link ios-gogs-link">
+						<a href="{{ .Params.gogs_link }}">
+							<i class="octicon octicon-repo"></i>
+							{{ .Params.gogs_link }}
+						</a>
+					</span>
+				</section>
+
+			</div>
 	</div>
 </div>
 
-<section class="debug">
-
-<h3>.Params</h3>	
-
-	{{ range $pkey, $pval := .Params }}
-		<strong>{{ $pkey }}</strong>&nbsp;<code>{{ $pval }}</code><br>
-	{{ end }}
-<hr>
-<h3>.</h3>
-	{{ range $apkey, $apval := . }}
-		<strong>{{ $apkey }}</strong>&nbsp;<code>{{ $apval }}</code><br>
-	{{ end }}
-
-</section>
 
 {{ partial "footer.html" . }}
