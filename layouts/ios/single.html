@@ -1,53 +1,71 @@
 {{ partial "header.html" . }}
-
-<div class="row py-2">
-	<div class="col-3">
-		<a href="/"><small class="text-primary">/ home </small></a>
-		<a href="/ios"><small class="text-primary">/ all apps</small></a>
-	</div>
-	{{ range $.Site.Pages }}
-	<div class="col-1">
-		<a href="{{ .RelPermalink }}">
-			<img src="{{ .Params.icon_path }}" alt="" class="img-fluid">
-		</a>
-	</div>
-	{{ end }}
+<div class="unnav-bar text-center">
+	<a href="/" style="color: white; z-index: 100;"><small>home</small></a>
 </div>
+<div class="container" >
+	<div class="row py-3">
 
-<div class="section">
-	<div class="row my-3">
-			<div class="col-3">
-				<img src="{{ .Params.icon_path }}" alt="" class="img-fluid">
-			</div>
+		{{ range $.Site.Pages }}
+		<div class="col-sm-2 col-md-1">
+			<a href="{{ .RelPermalink }}">
+				<img src="{{ .Params.icon_path }}" alt="" class="img-fluid rounded">
+			</a>
+		</div>
+		{{ end }}
+	</div>
 	
-			<!-- app content center -->
-			<div class="col-9 ios-single-content">
-				<span class="fold-here-instructions">Final step!</span>
-
-				<section>
-					<h2 style="color: {{ .Params.primary_color }};">{{ .Params.name }}</h2>
-					<p class="lead" style="color: {{ .Params.secondary_color }};">{{ .Params.description }}</p>
-					<small class="text-muted">{{ .Params.abstract }}</small>
-				</section>
-				<section class="p-2">
-					<span class="ios-repo-link ios-github-link">
-						<a href="{{ .Params.github_link }}">
-							<i class="octicon octicon-mark-github"></i>
-							{{ .Params.github_link }}
-						</a>
-					</span>
-					<br>
-					<span class="ios-repo-link ios-gogs-link">
-						<a href="{{ .Params.gogs_link }}">
-							<i class="octicon octicon-repo"></i>
-							{{ .Params.gogs_link }}
-						</a>
-					</span>
-				</section>
-
-			</div>
+	<div class="section" >
+		<div class="row my-3" style="background-color: {{ .Params.bg_color }};">
+				<div class="col-3 ios-single-icon">
+					<img src="{{ .Params.icon_path }}" alt="" class="img-fluid rounded">
+				</div>
+		
+				<!-- app content center -->
+				<div class="col-8 ios-single-content">
+					<span class="fold-here-instructions">Fold here.</span>
+	
+					<section>
+						<h2 style="color: {{ .Params.primary_color }};">{{ .Params.name }}</h2>
+						<p class="lead" style="color: {{ .Params.secondary_color }};">{{ .Params.description }}</p>
+						<p>
+							{{ range .Params.tags }}
+								<code>#{{ . }}</code>
+							{{ end }}
+						</p>
+						<small class="text-muted">{{ .Params.abstract }}</small>
+					</section>
+					<section class="p-2">
+	
+						<!-- github -->
+						<span class="ios-repo-link ios-github-link">
+							<a href="{{ .Params.github_link }}">
+								<i class="octicon octicon-mark-github"></i>
+							</a>
+						</span>
+						
+						<!-- gogs -->
+						<span class="ios-repo-link ios-gogs-link">
+							<a href="{{ .Params.gogs_link }}">
+								<i class="octicon octicon-repo"></i>
+							</a>
+						</span>
+						
+						<!-- itunes app store -->
+						<a href="{{ .Params.itunes_link }}" style="display:inline-block;overflow:hidden;background:url(https://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-sm.svg) no-repeat;width: 100px; height:1em;">	</a>
+					</section>
+	
+					<!-- screenshots -->
+					<div class="row p-3 my-3">
+	
+						{{ range .Params.screenshots }}
+							<div class="col-3">
+								<img src="{{ . }}" alt="" class="img-fluid screenshot">
+							</div>
+						{{ end }}
+					</div>
+				</div>
+		</div>
+		
 	</div>
-</div>
-
-
+	</div>
 {{ partial "footer.html" . }}

@@ -1,0 +1,38 @@
+.home {
+	padding: 0;
+	margin: 0;
+}
+.home .cover {
+	background-image: url("/img/bison-sm.jpg");
+	background-size: cover;
+	background-position: center center;
+	height: 100vh;
+	width: 100%;
+	padding: 5% 10%;
+}
+.home .row {
+	margin: 0;
+}
+.home .cover .text-content h1 {
+	margin-bottom :0;
+}
+.home .cover .text-content h1 > span {
+	color: white;
+	background-color: red;
+	margin-bottom: 0;
+	padding-bottom: 0;
+}
+.home .cover .text-content p.lead {
+	margin-top: 0;
+}
+.home .cover .text-content p.lead > span.pitch {
+	color: white;
+	background-color: darkblue;
+}
+.home .cover .text-content p.lead > span.about {
+	color: white;
+}
+.home .cover .text-content p.lead > span.kicker {
+	background-color: gold;
+	color: white;
+}

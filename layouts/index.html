@@ -1,8 +1,43 @@
 {{ partial "header.html" .}}
 
-<h1>Rotblauer</h1>
-<p>It's like a startup.</p>
+<div class="home ">
+		
+		<div class="cover">
+			<div class="text-content">
+				<h1><span>Rotblauer & Co.</span></h1>
+				<p class="lead"><span class="pitch">It's like a startup.</span> <span class="about">We make art, build tech, and do science.</span><!-- &nbsp;<span class="kicker">And we like it!</span> --></p>	
+			There are <a href="/ios/">apps</a>.	
+			</div>
+		</div>
 
-There are <a href="/ios/">apps</a>.
+		<section class="row p-1">
+			<h3 class="text-muted">
+				web
+			</h3>
+		</section>
+	
+		<section class="row  p-1">
+			<h3 class="text-muted">
+				ios
+			</h3>
+		</section>
+		<section class="row second-page p-3">
+			{{ range where .Data.Pages "Type" "ios" }}
+				
+				<div class="col-3">
+					<a href="{{ .Permalink }}">
+						<img src="{{ .Params.icon_path}}" alt="" class="img-fluid rounded">
+					</a>
+				</div>
+				
+			{{ end }}
+				
+		</section>
+		
+	</div>
+	
+	
+	
+	
 
 {{ partial "footer.html" .}}

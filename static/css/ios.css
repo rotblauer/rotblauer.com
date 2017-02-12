@@ -1,5 +1,4 @@
 img.screenshot {
-  // width: 20%;
   margin: 5px;
   -webkit-box-shadow: 2px -5px 73px -31px rgba(0,0,0,0.75);
   -moz-box-shadow: 2px -5px 73px -31px rgba(0,0,0,0.75);
@@ -33,4 +32,32 @@ span.fold-here-instructions {
 	border-top: 3px dashed lightgray;
 	padding-top: 30px;
 }
+.ios-single-icon {
+	padding-top: 30px;	
+}
 
+.app-store-badge {
+	/*display:inline-block;*/
+	/*overflow:hidden;*/
+	background:url(https://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg) no-repeat;
+	/*width:165px;*/
+	/*height:40px;*/
+}
+.app-store-badge-small {
+	/*display:inline-block;*/
+	overflow:hidden;
+	background:url(https://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-sm.svg) no-repeat;
+	/*width:80px;*/
+	/*height:15px;*/
+}
+
+.unnav-bar {
+	background-image: url("/img/bison-sm.jpg");
+	background-size: cover;
+	background-position: bottom;
+	position: fixed;
+	height: 5%;
+	top: 0;
+	right: 0;
+	left: 0;
+}
