@@ -1,0 +1,9 @@
+{{ partial "header.html" . }}
+
+<div class="alert"><strong>/ios/list.html</strong></div>
+
+{{ range .Pages }}
+	<a href="{{ .Permalink }}">{{ .Title }}</a>
+{{ end }}
+
+{{ partial "footer.html" . }}

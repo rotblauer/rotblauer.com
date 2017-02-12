@@ -1,24 +1,8 @@
-<!DOCTYPE html>
-<html lang="en-US">
-<head>
-    <meta charset="utf-8">
+{{ partial "header.html" .}}
 
-    <base href="{{ .Site.BaseURL }}">
-    <title>{{ .Site.Title }}</title>
-    <link rel="canonical" href="{{ .Permalink }}">
-    <link href="{{ .RSSLink }}" rel="alternate" type="application/rss+xml" title="{{ .Site.Title }}" />
+<h1>Rotblauer</h1>
+<p>It's like a startup.</p>
 
-    {{ partial "head_includes.html" . }}
+There are <a href="/ios/">apps</a>.
 
-</head>
-<body lang="en">
-<h1>Applications</h1>
-<section id="main">
-  <div>
-    {{ range $.Site.Data.ios }}
-        <div>{{ .Name }}, {{ .Description }}</div>
-    {{ end }}
-  </div>
-</section>
-</body> <!-- gotta have /body or hugo can't inject livereload.js -->
-</html>
+{{ partial "footer.html" .}}
