@@ -1,13 +1,49 @@
 {{ partial "header.html" . }}
 
-<div class="alert">
-	<strong>/ios/single.html</strong> layout template.
+<div class="section">
+	<div class="row p-y-3" style="background-color:{{ .Params.bg_color }}">
+		
+			<!-- app image left -->
+			<div class="col-xs-3">
+				<img src="{{ .Params.icon_path }}" alt="" class="img-fluid">
+			</div>
+
+			<!-- app content center -->
+			<div class="col-xs-9 col-sm-6">
+				<h2 style="color: {{ .Params.primary_color }};">{{ .Params.name }}</h2>
+				<p class="lead" style="color: {{ .Params.secondary_color }};">{{ .Params.description }}</p>
+				<p class="text-muted">{{ .Params.abstract }}</p>
+			</div>
+			
+			<!-- app store link right -->
+			<div class="col-sm-3">
+				{{ .Params.itunes_link }}
+			</div>
+
+	</div>
+
+	<div class="row">
+		<!-- TODO screenshots -->
+	</div>
+	
+	<div class="row">
+		{{ .Content }}
+	</div>
 </div>
 
-<h1>{{ .Title }}</h1>
+<section class="debug">
 
+<h3>.Params</h3>	
 
+	{{ range $pkey, $pval := .Params }}
+		<strong>{{ $pkey }}</strong>&nbsp;<code>{{ $pval }}</code><br>
+	{{ end }}
+<hr>
+<h3>.</h3>
+	{{ range $apkey, $apval := . }}
+		<strong>{{ $apkey }}</strong>&nbsp;<code>{{ $apval }}</code><br>
+	{{ end }}
 
-<p>{{ .Content }}</p>
+</section>
 
 {{ partial "footer.html" . }}

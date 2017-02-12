@@ -1,0 +1,11 @@
+{{- $pathURL := .Get "pathURL" -}}
+{{- $path := .Get "path" -}}
+{{- $images := readDir $path -}}
+
+{{- range $images }}
+    
+        <!-- <td>{{ .Size }}</td> -->
+        <!-- <td><a href="{{ $pathURL }}{{ .Name | relURL }}"> {{ .Name }}</a></td> -->
+        <img src="{{ $pathURL}}{{ .Name | relURL }}" alt="" class="screenshot" />
+    
+{{- end }}
