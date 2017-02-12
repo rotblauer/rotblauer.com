@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Rotblauer, LLC</title>
+    <link>http://rotblauer.com/index.xml</link>
+    <description>Recent content on Rotblauer, LLC</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 12 Feb 2017 13:54:56 +0100</lastBuildDate>
+    <atom:link href="http://rotblauer.com/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Spoop</title>
+      <link>http://rotblauer.com/ios/spoop/</link>
+      <pubDate>Sun, 12 Feb 2017 13:54:56 +0100</pubDate>
+      
+      <guid>http://rotblauer.com/ios/spoop/</guid>
+      <description>&lt;p&gt;It is life.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-go&#34;&gt;go func() {fmt.Println(&amp;quot;alright alright alright&amp;quot;)}()
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
