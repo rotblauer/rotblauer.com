@@ -1,6 +1,6 @@
 {{ partial "header.html" . }}
 <div class="unnav-bar px-3">
-	<small id="go-home-instructions" style="color: white; font-size: 0.6em;">(click up here to go back home)</small>
+	<span id="go-home-instructions" class="badge badge-info" style="font-size: 0.6em;">click anywhere up here to go back home</span>
 </div>
 <script>
 	$(".unnav-bar").on("click", function () {
@@ -12,9 +12,6 @@
 		localStorage.setItem("seen_gohome_instructions", 1);	
 	} else if (parseInt(localStorage.getItem("seen_gohome_instructions")) > 3) {
 		$("#go-home-instructions").hide();
-	} else {
-		var n = parseInt(localStorage.getItem("seen_gohome_instructions"));
-		localStorage.setItem("seen_gohome_instructions", n+1);
 	}
 
 </script>
@@ -22,7 +19,7 @@
 	<div class="row py-3" style="pointer-events: none;">
 
 		{{ range $.Site.Pages }}
-		<div class="col-sm-2 col-md-1" >
+		<div class="col-1 col-sm-1" >
 			<a href="{{ .RelPermalink }}">
 				<img src="{{ .Params.icon_path }}" alt="" class="img-fluid rounded" style="pointer-events: all;">
 			</a>

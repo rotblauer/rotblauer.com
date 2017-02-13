@@ -90,5 +90,23 @@
       <description></description>
     </item>
     
+    <item>
+      <title>CatHack</title>
+      <link>http://rotblauer.com/web/cathack/</link>
+      <pubDate>Sun, 12 Feb 2017 12:37:25 +0100</pubDate>
+      
+      <guid>http://rotblauer.com/web/cathack/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Spoop</title>
+      <link>http://rotblauer.com/web/spoop/</link>
+      <pubDate>Sun, 12 Feb 2017 12:37:25 +0100</pubDate>
+      
+      <guid>http://rotblauer.com/web/spoop/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>
