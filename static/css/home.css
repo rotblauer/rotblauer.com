@@ -41,6 +41,12 @@
 }
 
 .home .cover .text-content-right {
-	float: right;
 	text-align: right;
+}
+
+.text-grass {
+	color: rgb(195,163,131);
+}
+.text-grass:hover {
+	color: rgb(160,121,92);
 }

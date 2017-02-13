@@ -19,238 +19,249 @@
 
 
 <link rel="stylesheet" href="/css/home.css">
+<link rel="stylesheet" href="/css/portfolio.css">
 <link rel="stylesheet" href="/css/ios.css">
 
 </head>
 <body class="">
-<div class="unnav-bar px-3">
-	<small id="go-home-instructions" style="color: white; font-size: 0.6em;">(click up here to go back home)</small>
+
+
+<div class="unnav-bar px-3 ">
+	<span style="color: white;">
+		<i class="mega-octicon octicon-chevron-up"></i>
+	</span>
+
+
 </div>
+
 <script>
 	$(".unnav-bar").on("click", function () {
 		console.log("clicking");
 		location.href= "/";
-		localStorage.setItem("seen_gohome_instructions", 4); 
+		
 	});
-	if (localStorage.getItem("seen_gohome_instructions") === null) {
-		localStorage.setItem("seen_gohome_instructions", 1);	
-	} else if (parseInt(localStorage.getItem("seen_gohome_instructions")) > 3) {
-		$("#go-home-instructions").hide();
-	} else {
-		var n = parseInt(localStorage.getItem("seen_gohome_instructions"));
-		localStorage.setItem("seen_gohome_instructions", n+1);
-	}
-
+	
+	
+	
+	
+	
 </script>
+
 <div class="container" style="pointer-events: none;" >
 	<div class="row py-3" style="pointer-events: none;">
 
 		
-		<div class="col-sm-2 col-md-1" >
+		<div class="col-1 col-sm-1" >
 			<a href="/web/goggable/">
 				<img src="" alt="" class="img-fluid rounded" style="pointer-events: all;">
 			</a>
 		</div>
 		
-		<div class="col-sm-2 col-md-1" >
+		<div class="col-1 col-sm-1" >
 			<a href="/web/punktlich/">
 				<img src="" alt="" class="img-fluid rounded" style="pointer-events: all;">
 			</a>
 		</div>
 		
-		<div class="col-sm-2 col-md-1" >
+		<div class="col-1 col-sm-1" >
 			<a href="/ios/RealTime/">
 				<img src="/img/rbapps/realtime/icon.jpg" alt="" class="img-fluid rounded" style="pointer-events: all;">
 			</a>
 		</div>
 		
-		<div class="col-sm-2 col-md-1" >
+		<div class="col-1 col-sm-1" >
 			<a href="/ios/Anagramatizer/">
 				<img src="/img/rbapps/anagramatizer/icon.png" alt="" class="img-fluid rounded" style="pointer-events: all;">
 			</a>
 		</div>
 		
-		<div class="col-sm-2 col-md-1" >
+		<div class="col-1 col-sm-1" >
 			<a href="/ios/NewScience/">
 				<img src="/img/rbapps/rules/icon.png" alt="" class="img-fluid rounded" style="pointer-events: all;">
 			</a>
 		</div>
 		
-		<div class="col-sm-2 col-md-1" >
+		<div class="col-1 col-sm-1" >
 			<a href="/ios/Noonish/">
 				<img src="/img/rbapps/noonish/icon.png" alt="" class="img-fluid rounded" style="pointer-events: all;">
 			</a>
 		</div>
 		
-		<div class="col-sm-2 col-md-1" >
+		<div class="col-1 col-sm-1" >
 			<a href="/ios/CellOMatic/">
 				<img src="/img/rbapps/cellomatic/icon.png" alt="" class="img-fluid rounded" style="pointer-events: all;">
 			</a>
 		</div>
 		
-		<div class="col-sm-2 col-md-1" >
+		<div class="col-1 col-sm-1" >
 			<a href="/ios/blackjacked/">
 				<img src="/img/rbapps/blackjacked/icon.png" alt="" class="img-fluid rounded" style="pointer-events: all;">
 			</a>
 		</div>
 		
-		<div class="col-sm-2 col-md-1" >
+		<div class="col-1 col-sm-1" >
 			<a href="/ios/spoop/">
 				<img src="/img/rbapps/spoop/icon.png" alt="" class="img-fluid rounded" style="pointer-events: all;">
 			</a>
 		</div>
 		
-		<div class="col-sm-2 col-md-1" >
+		<div class="col-1 col-sm-1" >
 			<a href="/web/cathack/">
 				<img src="" alt="" class="img-fluid rounded" style="pointer-events: all;">
 			</a>
 		</div>
 		
-		<div class="col-sm-2 col-md-1" >
+		<div class="col-1 col-sm-1" >
 			<a href="/web/spoop/">
 				<img src="" alt="" class="img-fluid rounded" style="pointer-events: all;">
 			</a>
 		</div>
 		
-		<div class="col-sm-2 col-md-1" >
+		<div class="col-1 col-sm-1" >
+			<a href="/portfolio/">
+				<img src="" alt="" class="img-fluid rounded" style="pointer-events: all;">
+			</a>
+		</div>
+		
+		<div class="col-1 col-sm-1" >
 			<a href="/tags/api/">
 				<img src="" alt="" class="img-fluid rounded" style="pointer-events: all;">
 			</a>
 		</div>
 		
-		<div class="col-sm-2 col-md-1" >
+		<div class="col-1 col-sm-1" >
 			<a href="/tags/bioinfo/">
 				<img src="" alt="" class="img-fluid rounded" style="pointer-events: all;">
 			</a>
 		</div>
 		
-		<div class="col-sm-2 col-md-1" >
+		<div class="col-1 col-sm-1" >
 			<a href="/tags/biome/">
 				<img src="" alt="" class="img-fluid rounded" style="pointer-events: all;">
 			</a>
 		</div>
 		
-		<div class="col-sm-2 col-md-1" >
+		<div class="col-1 col-sm-1" >
 			<a href="/tags/cellular-automata/">
 				<img src="" alt="" class="img-fluid rounded" style="pointer-events: all;">
 			</a>
 		</div>
 		
-		<div class="col-sm-2 col-md-1" >
+		<div class="col-1 col-sm-1" >
 			<a href="/tags/conway/">
 				<img src="" alt="" class="img-fluid rounded" style="pointer-events: all;">
 			</a>
 		</div>
 		
-		<div class="col-sm-2 col-md-1" >
+		<div class="col-1 col-sm-1" >
 			<a href="/tags/cordova/">
 				<img src="" alt="" class="img-fluid rounded" style="pointer-events: all;">
 			</a>
 		</div>
 		
-		<div class="col-sm-2 col-md-1" >
+		<div class="col-1 col-sm-1" >
 			<a href="/tags/exercise/">
 				<img src="" alt="" class="img-fluid rounded" style="pointer-events: all;">
 			</a>
 		</div>
 		
-		<div class="col-sm-2 col-md-1" >
+		<div class="col-1 col-sm-1" >
 			<a href="/tags/geo/">
 				<img src="" alt="" class="img-fluid rounded" style="pointer-events: all;">
 			</a>
 		</div>
 		
-		<div class="col-sm-2 col-md-1" >
+		<div class="col-1 col-sm-1" >
 			<a href="/tags/hybrid/">
 				<img src="" alt="" class="img-fluid rounded" style="pointer-events: all;">
 			</a>
 		</div>
 		
-		<div class="col-sm-2 col-md-1" >
+		<div class="col-1 col-sm-1" >
 			<a href="/tags/ionic/">
 				<img src="" alt="" class="img-fluid rounded" style="pointer-events: all;">
 			</a>
 		</div>
 		
-		<div class="col-sm-2 col-md-1" >
+		<div class="col-1 col-sm-1" >
 			<a href="/tags/ios/">
 				<img src="" alt="" class="img-fluid rounded" style="pointer-events: all;">
 			</a>
 		</div>
 		
-		<div class="col-sm-2 col-md-1" >
+		<div class="col-1 col-sm-1" >
 			<a href="/ios/">
 				<img src="" alt="" class="img-fluid rounded" style="pointer-events: all;">
 			</a>
 		</div>
 		
-		<div class="col-sm-2 col-md-1" >
+		<div class="col-1 col-sm-1" >
 			<a href="/tags/js/">
 				<img src="" alt="" class="img-fluid rounded" style="pointer-events: all;">
 			</a>
 		</div>
 		
-		<div class="col-sm-2 col-md-1" >
+		<div class="col-1 col-sm-1" >
 			<a href="/tags/mean-time/">
 				<img src="" alt="" class="img-fluid rounded" style="pointer-events: all;">
 			</a>
 		</div>
 		
-		<div class="col-sm-2 col-md-1" >
+		<div class="col-1 col-sm-1" >
 			<a href="/tags/relativity/">
 				<img src="" alt="" class="img-fluid rounded" style="pointer-events: all;">
 			</a>
 		</div>
 		
-		<div class="col-sm-2 col-md-1" >
+		<div class="col-1 col-sm-1" >
 			<a href="/">
 				<img src="" alt="" class="img-fluid rounded" style="pointer-events: all;">
 			</a>
 		</div>
 		
-		<div class="col-sm-2 col-md-1" >
+		<div class="col-1 col-sm-1" >
 			<a href="/tags/rules/">
 				<img src="" alt="" class="img-fluid rounded" style="pointer-events: all;">
 			</a>
 		</div>
 		
-		<div class="col-sm-2 col-md-1" >
+		<div class="col-1 col-sm-1" >
 			<a href="/tags/">
 				<img src="" alt="" class="img-fluid rounded" style="pointer-events: all;">
 			</a>
 		</div>
 		
-		<div class="col-sm-2 col-md-1" >
+		<div class="col-1 col-sm-1" >
 			<a href="/tags/time/">
 				<img src="" alt="" class="img-fluid rounded" style="pointer-events: all;">
 			</a>
 		</div>
 		
-		<div class="col-sm-2 col-md-1" >
+		<div class="col-1 col-sm-1" >
 			<a href="/tags/tracking/">
 				<img src="" alt="" class="img-fluid rounded" style="pointer-events: all;">
 			</a>
 		</div>
 		
-		<div class="col-sm-2 col-md-1" >
+		<div class="col-1 col-sm-1" >
 			<a href="/tags/visualization/">
 				<img src="" alt="" class="img-fluid rounded" style="pointer-events: all;">
 			</a>
 		</div>
 		
-		<div class="col-sm-2 col-md-1" >
+		<div class="col-1 col-sm-1" >
 			<a href="/web/">
 				<img src="" alt="" class="img-fluid rounded" style="pointer-events: all;">
 			</a>
 		</div>
 		
-		<div class="col-sm-2 col-md-1" >
+		<div class="col-1 col-sm-1" >
 			<a href="/tags/wolfram/">
 				<img src="" alt="" class="img-fluid rounded" style="pointer-events: all;">
 			</a>
 		</div>
 		
-		<div class="col-sm-2 col-md-1" >
+		<div class="col-1 col-sm-1" >
 			<a href="/tags/wordplay/">
 				<img src="" alt="" class="img-fluid rounded" style="pointer-events: all;">
 			</a>
@@ -346,6 +357,5 @@
 		
 	</div>
 	</div>
-
-</body> 
+</body>
 </html>

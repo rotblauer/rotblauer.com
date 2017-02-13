@@ -1,20 +1,7 @@
 {{ partial "header.html" . }}
-<div class="unnav-bar px-3">
-	<span id="go-home-instructions" class="badge badge-info" style="font-size: 0.6em;">click anywhere up here to go back home</span>
-</div>
-<script>
-	$(".unnav-bar").on("click", function () {
-		console.log("clicking");
-		location.href= "/";
-		localStorage.setItem("seen_gohome_instructions", 4); // they know what they're doing
-	});
-	if (localStorage.getItem("seen_gohome_instructions") === null) {
-		localStorage.setItem("seen_gohome_instructions", 1);	
-	} else if (parseInt(localStorage.getItem("seen_gohome_instructions")) > 3) {
-		$("#go-home-instructions").hide();
-	}
 
-</script>
+{{ partial "unnav.html" .}}
+
 <div class="container" style="pointer-events: none;" >
 	<div class="row py-3" style="pointer-events: none;">
 
@@ -89,4 +76,5 @@
 		
 	</div>
 	</div>
-{{ partial "footer.html" . }}
+</body>
+</html>
