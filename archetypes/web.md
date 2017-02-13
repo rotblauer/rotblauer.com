@@ -1,7 +1,8 @@
 +++
 title = ""
 description = ""
-web_url = ""
+web_link = ""
+github_link = ""
 screenshot = ""
 +++
 

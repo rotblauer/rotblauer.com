@@ -11,7 +11,7 @@
 				
 
 				<div class="hidden-sm-up mb-3">
-				<span class="badge badge-default"><a href="https://github.com/rotblauer" style="color: white;">
+				<span class="badge badge-default"><a target="_blank" href="https://github.com/rotblauer" style="color: white;">
 						<i class="octicon octicon-mark-github"></i> github.com/rotblauer
 					</a></span>
 					
@@ -52,19 +52,26 @@
 		
 		<div class="row my-3 text-center text-primary">
 			<div class="col-12">
-				<span>
-				<i class="mega-octicon octicon-link"></i>
+				<span class="text-info">
+				<i class="octicon octicon-link"></i> Sites
 				</span>
 			</div>
 		</div>
 		<div class="section row">
 			{{ range where .Data.Pages "Type" "web" }}
 				
-					<div class="col-sm-6 p-0 text-center text-muted" onclick="window.open('{{ .Params.web_url }}')">
+					<div class="col-sm-6 p-0 text-center text-muted">
 						<img src="{{ .Params.screenshot }}" alt="" class="img-fluid">
 						<p>
-							<span class="lead ">{{ .Params.web_url }}<span><br>
-							<small class="">{{ .Params.description | markdownify | emojify }}</small>
+							<small class="">{{ .Params.description | markdownify | emojify }}</small><br>
+								<div style="display: inline-block;">
+									<a target="_blank" href="{{ .Params.web_link }}">
+										<i class="octicon octicon-link-external"></i> {{ .Params.web_link }}
+									</a>
+								</div>
+								{{ if .Params.github_link }}
+									<div style="display: inline-block;">&nbsp;<a target="_blank" href="{{ .Params.github_link }}"><i class="octicon octicon-mark-github"></i> {{ .Params.github_link }} </a></div>
+								{{ end }}
 						</p>
 						
 						
@@ -75,19 +82,20 @@
 
 				<div class="row my-3 text-center text-primary">
 			<div class="col-12">
-				<span>
-				<i class="mega-octicon octicon-device-mobile"></i>
+				<span class="text-info">
+				<i class="octicon octicon-device-mobile"></i> iOS Apps
 				</span>
 			</div>
 		</div>
 	
-		<section class="row second-page p-3 hidden-xs-down ">
+		<section class="row second-page text-center p-3 hidden-xs-down ">
 			{{ range where .Data.Pages "Type" "ios" }}
 			
 				<!-- desk/tab -->
 				<div class="col my-2">
 					<a href="{{ .Permalink }}">
 						<img src="{{ .Params.icon_path}}" alt="" class="img-fluid rounded">
+						<small class="text-muted">{{ .Params.name }}</small>
 					</a>
 				</div>
 				
@@ -95,13 +103,14 @@
 				
 		</section>
 
-		<section class="row second-page p-3 hidden-sm-up">
+		<section class="row second-page text-center p-3 hidden-sm-up">
 			{{ range where .Data.Pages "Type" "ios" }}
 			
 				<!-- desk/tab -->
 				<div class="col-3 my-2">
 					<a href="{{ .Permalink }}">
 						<img src="{{ .Params.icon_path}}" alt="" class="img-fluid rounded">
+						<small class="text-muted">{{ .Params.name }}</small>
 					</a>
 				</div>
 				
