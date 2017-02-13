@@ -1,0 +1,21 @@
+
+<div class="unnav-bar px-3 ">
+	<span style="color: white;">
+		<i class="mega-octicon octicon-chevron-up"></i>
+	</span>
+
+<!-- 	<span id="go-home-instructions" class="badge badge-info" style="font-size: 0.6em;">click anywhere up here to go back home</span> -->
+</div>
+
+<script>
+	$(".unnav-bar").on("click", function () {
+		console.log("clicking");
+		location.href= "/";
+		// localStorage.setItem("seen_gohome_instructions", 4); // they know what they're doing
+	});
+	// if (localStorage.getItem("seen_gohome_instructions") === null) {
+	// 		localStorage.setItem("seen_gohome_instructions", 1);
+	// } else if (parseInt(localStorage.getItem("seen_gohome_instructions")) > 3) {
+	// 	$("#go-home-instructions").hide();
+	// }
+</script>
