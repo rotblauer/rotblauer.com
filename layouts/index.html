@@ -22,7 +22,7 @@
 			
 				<div class="all-tags">
 			  {{ range $name, $taxonomy := .Site.Taxonomies.tags }}
-			    <code><a href="{{ "/tags/" | relLangURL }}{{ $name | urlize }}">#{{ $name }}</a></code>
+			    <code>#{{ $name }}</code>
 			  {{ end }}
 			  </div>
 
