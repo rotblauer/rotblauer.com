@@ -11,7 +11,7 @@ secondary_color = ""
 
 # Images
 icon_path = "" # "/img/rbapps/spoop/icon.png"
-screenshots_dir = "" # Directory holding em.
+screenshots = [] # Directory holding em.
 
 # Linkers
 website_link = ""

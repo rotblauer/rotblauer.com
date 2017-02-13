@@ -52,7 +52,7 @@ span.fold-here-instructions {
 }
 
 .unnav-bar {
-	background-image: url("/img/fast/bison.jpg");
+	background-image: url("/img/fast/bison-bottom.jpg");
 	background-size: cover;
 	background-position: bottom;
 	position: fixed;
@@ -60,4 +60,5 @@ span.fold-here-instructions {
 	top: 0;
 	right: 0;
 	left: 0;
+	text-align: right;
 }

@@ -3,28 +3,37 @@
 <div class="home ">
 		
 		<div class="cover">
-			<div class="text-content">
-				<h1><span>Rotblauer & Co.</span></h1>
-				<p class="lead"><span class="pitch">It's like a startup.</span> <span class="about">We make art, build tech, and do science.</span><!-- &nbsp;<span class="kicker">And we like it!</span> --></p>	
-			There are <a href="/ios/">apps</a>.	
+			<div class="text-content-right hidden-xs-down">
+				<span class="badge badge-default"><a href="https://github.com/rotblauer" style="color: white;">
+						<i class="octicon octicon-mark-github"></i> github.com/rotblauer
+					</a></span>
 			</div>
-		</div>
+			<div class="text-content">
+				<h1><span>Rotblauer && Co.</span></h1>
+				<p class="lead"><span class="pitch">It's like a startup.</span> <span class="about">We make art, build tech, and do science.</span><!-- &nbsp;<span class="kicker">And we like it!</span> --></p>	
+				
 
-		<section class="row p-1">
-			<h3 class="text-muted">
-				web
-			</h3>
-		</section>
+				<div class="hidden-sm-up mb-3">
+				<span class="badge badge-default"><a href="https://github.com/rotblauer" style="color: white;">
+						<i class="octicon octicon-mark-github"></i> github.com/rotblauer
+					</a></span>
+					
+				</div>
+			
+				<div class="all-tags">
+			  {{ range $name, $taxonomy := .Site.Taxonomies.tags }}
+			    <code><a href="{{ "/tags/" | relLangURL }}{{ $name | urlize }}">#{{ $name }}</a></code>
+			  {{ end }}
+			  </div>
+
+			</div>
+		
+		</div>
 	
-		<section class="row  p-1">
-			<h3 class="text-muted">
-				ios
-			</h3>
-		</section>
 		<section class="row second-page p-3">
 			{{ range where .Data.Pages "Type" "ios" }}
 				
-				<div class="col-3">
+				<div class="col-md-2 col-lg-1">
 					<a href="{{ .Permalink }}">
 						<img src="{{ .Params.icon_path}}" alt="" class="img-fluid rounded">
 					</a>
@@ -33,6 +42,7 @@
 			{{ end }}
 				
 		</section>
+
 		
 	</div>
 	

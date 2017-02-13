@@ -1,21 +1,37 @@
 {{ partial "header.html" . }}
-<div class="unnav-bar text-center">
-	<a href="/" style="color: white; z-index: 100;"><small>home</small></a>
+<div class="unnav-bar px-3">
+	<small id="go-home-instructions" style="color: white; font-size: 0.6em;">(click up here to go back home)</small>
 </div>
-<div class="container" >
-	<div class="row py-3">
+<script>
+	$(".unnav-bar").on("click", function () {
+		console.log("clicking");
+		location.href= "/";
+		localStorage.setItem("seen_gohome_instructions", 4); // they know what they're doing
+	});
+	if (localStorage.getItem("seen_gohome_instructions") === null) {
+		localStorage.setItem("seen_gohome_instructions", 1);	
+	} else if (parseInt(localStorage.getItem("seen_gohome_instructions")) > 3) {
+		$("#go-home-instructions").hide();
+	} else {
+		var n = parseInt(localStorage.getItem("seen_gohome_instructions"));
+		localStorage.setItem("seen_gohome_instructions", n+1);
+	}
+
+</script>
+<div class="container" style="pointer-events: none;" >
+	<div class="row py-3" style="pointer-events: none;">
 
 		{{ range $.Site.Pages }}
-		<div class="col-sm-2 col-md-1">
+		<div class="col-sm-2 col-md-1" >
 			<a href="{{ .RelPermalink }}">
-				<img src="{{ .Params.icon_path }}" alt="" class="img-fluid rounded">
+				<img src="{{ .Params.icon_path }}" alt="" class="img-fluid rounded" style="pointer-events: all;">
 			</a>
 		</div>
 		{{ end }}
 	</div>
 	
 	<div class="section" >
-		<div class="row my-3" style="background-color: {{ .Params.bg_color }};">
+		<div class="row my-3" >
 				<div class="col-3 ios-single-icon">
 					<img src="{{ .Params.icon_path }}" alt="" class="img-fluid rounded">
 				</div>
@@ -24,34 +40,42 @@
 				<div class="col-8 ios-single-content">
 					<span class="fold-here-instructions">Fold here.</span>
 	
-					<section>
+					<section >
 						<h2 style="color: {{ .Params.primary_color }};">{{ .Params.name }}</h2>
-						<p class="lead" style="color: {{ .Params.secondary_color }};">{{ .Params.description }}</p>
+						<p class="lead" >{{ .Params.description }}</p>
+						{{ if .Params.tags }}
 						<p>
 							{{ range .Params.tags }}
 								<code>#{{ . }}</code>
 							{{ end }}
 						</p>
+						{{ end }}
 						<small class="text-muted">{{ .Params.abstract }}</small>
 					</section>
 					<section class="p-2">
 	
 						<!-- github -->
+						{{ if .Params.github_link }}
 						<span class="ios-repo-link ios-github-link">
-							<a href="{{ .Params.github_link }}">
+							<a href="{{ .Params.github_link }}" target="_blank">
 								<i class="octicon octicon-mark-github"></i>
 							</a>
 						</span>
+						{{ end }}
 						
 						<!-- gogs -->
+						{{ if .Params.gogs_link }}
 						<span class="ios-repo-link ios-gogs-link">
-							<a href="{{ .Params.gogs_link }}">
+							<a href="{{ .Params.gogs_link }}" target="_blank">
 								<i class="octicon octicon-repo"></i>
 							</a>
 						</span>
+						{{ end }}
 						
 						<!-- itunes app store -->
-						<a href="{{ .Params.itunes_link }}" style="display:inline-block;overflow:hidden;background:url(https://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-sm.svg) no-repeat;width: 100px; height:1em;">	</a>
+						{{ if .Params.itunes_link }}
+						<a href="{{ .Params.itunes_link }}" style="display:inline-block;overflow:hidden;background:url(https://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-sm.svg) no-repeat;width: 100px; height:1em;" target="_blank" >	</a>
+						{{ end }}
 					</section>
 	
 					<!-- screenshots -->
