@@ -4,9 +4,9 @@
     <meta charset="utf-8">
 
     <base href="http://rotblauer.com/">
-    <title>Rotblauer &amp; Co.</title>
+    <title>Rotblauer &amp;&amp; Co.</title>
     <link rel="canonical" href="http://rotblauer.com/ios/spoop/">
-    <link href="" rel="alternate" type="application/rss+xml" title="Rotblauer &amp; Co." />
+    <link href="" rel="alternate" type="application/rss+xml" title="Rotblauer &amp;&amp; Co." />
 
     
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
@@ -23,101 +23,213 @@
 
 </head>
 <body class="">
-<div class="unnav-bar text-center">
-	<a href="/" style="color: white; z-index: 100;"><small>home</small></a>
+<div class="unnav-bar px-3">
+	<small id="go-home-instructions" style="color: white; font-size: 0.6em;">(click up here to go back home)</small>
 </div>
-<div class="container" >
-	<div class="row py-3">
+<script>
+	$(".unnav-bar").on("click", function () {
+		console.log("clicking");
+		location.href= "/";
+		localStorage.setItem("seen_gohome_instructions", 4); 
+	});
+	if (localStorage.getItem("seen_gohome_instructions") === null) {
+		localStorage.setItem("seen_gohome_instructions", 1);	
+	} else if (parseInt(localStorage.getItem("seen_gohome_instructions")) > 3) {
+		$("#go-home-instructions").hide();
+	} else {
+		var n = parseInt(localStorage.getItem("seen_gohome_instructions"));
+		localStorage.setItem("seen_gohome_instructions", n+1);
+	}
+
+</script>
+<div class="container" style="pointer-events: none;" >
+	<div class="row py-3" style="pointer-events: none;">
 
 		
-		<div class="col-sm-2 col-md-1">
+		<div class="col-sm-2 col-md-1" >
+			<a href="/ios/RealTime/">
+				<img src="/img/rbapps/realtime/icon.jpg" alt="" class="img-fluid rounded" style="pointer-events: all;">
+			</a>
+		</div>
+		
+		<div class="col-sm-2 col-md-1" >
+			<a href="/ios/Anagramatizer/">
+				<img src="/img/rbapps/anagramatizer/icon.png" alt="" class="img-fluid rounded" style="pointer-events: all;">
+			</a>
+		</div>
+		
+		<div class="col-sm-2 col-md-1" >
+			<a href="/ios/NewScience/">
+				<img src="/img/rbapps/rules/icon.png" alt="" class="img-fluid rounded" style="pointer-events: all;">
+			</a>
+		</div>
+		
+		<div class="col-sm-2 col-md-1" >
+			<a href="/ios/Noonish/">
+				<img src="/img/rbapps/noonish/icon.png" alt="" class="img-fluid rounded" style="pointer-events: all;">
+			</a>
+		</div>
+		
+		<div class="col-sm-2 col-md-1" >
+			<a href="/ios/CellOMatic/">
+				<img src="/img/rbapps/cellomatic/icon.png" alt="" class="img-fluid rounded" style="pointer-events: all;">
+			</a>
+		</div>
+		
+		<div class="col-sm-2 col-md-1" >
 			<a href="/ios/blackjacked/">
-				<img src="/img/rbapps/blackjacked/icon.png" alt="" class="img-fluid rounded">
+				<img src="/img/rbapps/blackjacked/icon.png" alt="" class="img-fluid rounded" style="pointer-events: all;">
 			</a>
 		</div>
 		
-		<div class="col-sm-2 col-md-1">
+		<div class="col-sm-2 col-md-1" >
 			<a href="/ios/spoop/">
-				<img src="/img/rbapps/spoop/icon.png" alt="" class="img-fluid rounded">
+				<img src="/img/rbapps/spoop/icon.png" alt="" class="img-fluid rounded" style="pointer-events: all;">
 			</a>
 		</div>
 		
-		<div class="col-sm-2 col-md-1">
+		<div class="col-sm-2 col-md-1" >
 			<a href="/tags/api/">
-				<img src="" alt="" class="img-fluid rounded">
+				<img src="" alt="" class="img-fluid rounded" style="pointer-events: all;">
 			</a>
 		</div>
 		
-		<div class="col-sm-2 col-md-1">
+		<div class="col-sm-2 col-md-1" >
 			<a href="/tags/bioinfo/">
-				<img src="" alt="" class="img-fluid rounded">
+				<img src="" alt="" class="img-fluid rounded" style="pointer-events: all;">
 			</a>
 		</div>
 		
-		<div class="col-sm-2 col-md-1">
+		<div class="col-sm-2 col-md-1" >
 			<a href="/tags/biome/">
-				<img src="" alt="" class="img-fluid rounded">
+				<img src="" alt="" class="img-fluid rounded" style="pointer-events: all;">
 			</a>
 		</div>
 		
-		<div class="col-sm-2 col-md-1">
+		<div class="col-sm-2 col-md-1" >
+			<a href="/tags/cellular-automata/">
+				<img src="" alt="" class="img-fluid rounded" style="pointer-events: all;">
+			</a>
+		</div>
+		
+		<div class="col-sm-2 col-md-1" >
+			<a href="/tags/conway/">
+				<img src="" alt="" class="img-fluid rounded" style="pointer-events: all;">
+			</a>
+		</div>
+		
+		<div class="col-sm-2 col-md-1" >
 			<a href="/tags/cordova/">
-				<img src="" alt="" class="img-fluid rounded">
+				<img src="" alt="" class="img-fluid rounded" style="pointer-events: all;">
 			</a>
 		</div>
 		
-		<div class="col-sm-2 col-md-1">
+		<div class="col-sm-2 col-md-1" >
 			<a href="/tags/exercise/">
-				<img src="" alt="" class="img-fluid rounded">
+				<img src="" alt="" class="img-fluid rounded" style="pointer-events: all;">
 			</a>
 		</div>
 		
-		<div class="col-sm-2 col-md-1">
+		<div class="col-sm-2 col-md-1" >
+			<a href="/tags/geo/">
+				<img src="" alt="" class="img-fluid rounded" style="pointer-events: all;">
+			</a>
+		</div>
+		
+		<div class="col-sm-2 col-md-1" >
 			<a href="/tags/hybrid/">
-				<img src="" alt="" class="img-fluid rounded">
+				<img src="" alt="" class="img-fluid rounded" style="pointer-events: all;">
 			</a>
 		</div>
 		
-		<div class="col-sm-2 col-md-1">
+		<div class="col-sm-2 col-md-1" >
 			<a href="/tags/ionic/">
-				<img src="" alt="" class="img-fluid rounded">
+				<img src="" alt="" class="img-fluid rounded" style="pointer-events: all;">
 			</a>
 		</div>
 		
-		<div class="col-sm-2 col-md-1">
+		<div class="col-sm-2 col-md-1" >
+			<a href="/tags/ios/">
+				<img src="" alt="" class="img-fluid rounded" style="pointer-events: all;">
+			</a>
+		</div>
+		
+		<div class="col-sm-2 col-md-1" >
 			<a href="/ios/">
-				<img src="" alt="" class="img-fluid rounded">
+				<img src="" alt="" class="img-fluid rounded" style="pointer-events: all;">
 			</a>
 		</div>
 		
-		<div class="col-sm-2 col-md-1">
+		<div class="col-sm-2 col-md-1" >
 			<a href="/tags/js/">
-				<img src="" alt="" class="img-fluid rounded">
+				<img src="" alt="" class="img-fluid rounded" style="pointer-events: all;">
 			</a>
 		</div>
 		
-		<div class="col-sm-2 col-md-1">
+		<div class="col-sm-2 col-md-1" >
+			<a href="/tags/mean-time/">
+				<img src="" alt="" class="img-fluid rounded" style="pointer-events: all;">
+			</a>
+		</div>
+		
+		<div class="col-sm-2 col-md-1" >
+			<a href="/tags/relativity/">
+				<img src="" alt="" class="img-fluid rounded" style="pointer-events: all;">
+			</a>
+		</div>
+		
+		<div class="col-sm-2 col-md-1" >
 			<a href="/">
-				<img src="" alt="" class="img-fluid rounded">
+				<img src="" alt="" class="img-fluid rounded" style="pointer-events: all;">
 			</a>
 		</div>
 		
-		<div class="col-sm-2 col-md-1">
+		<div class="col-sm-2 col-md-1" >
+			<a href="/tags/rules/">
+				<img src="" alt="" class="img-fluid rounded" style="pointer-events: all;">
+			</a>
+		</div>
+		
+		<div class="col-sm-2 col-md-1" >
 			<a href="/tags/">
-				<img src="" alt="" class="img-fluid rounded">
+				<img src="" alt="" class="img-fluid rounded" style="pointer-events: all;">
 			</a>
 		</div>
 		
-		<div class="col-sm-2 col-md-1">
+		<div class="col-sm-2 col-md-1" >
+			<a href="/tags/time/">
+				<img src="" alt="" class="img-fluid rounded" style="pointer-events: all;">
+			</a>
+		</div>
+		
+		<div class="col-sm-2 col-md-1" >
 			<a href="/tags/tracking/">
-				<img src="" alt="" class="img-fluid rounded">
+				<img src="" alt="" class="img-fluid rounded" style="pointer-events: all;">
+			</a>
+		</div>
+		
+		<div class="col-sm-2 col-md-1" >
+			<a href="/tags/visualization/">
+				<img src="" alt="" class="img-fluid rounded" style="pointer-events: all;">
+			</a>
+		</div>
+		
+		<div class="col-sm-2 col-md-1" >
+			<a href="/tags/wolfram/">
+				<img src="" alt="" class="img-fluid rounded" style="pointer-events: all;">
+			</a>
+		</div>
+		
+		<div class="col-sm-2 col-md-1" >
+			<a href="/tags/wordplay/">
+				<img src="" alt="" class="img-fluid rounded" style="pointer-events: all;">
 			</a>
 		</div>
 		
 	</div>
 	
 	<div class="section" >
-		<div class="row my-3" style="background-color: ZgotmplZ;">
+		<div class="row my-3" >
 				<div class="col-3 ios-single-icon">
 					<img src="/img/rbapps/spoop/icon.png" alt="" class="img-fluid rounded">
 				</div>
@@ -126,9 +238,10 @@
 				<div class="col-8 ios-single-content">
 					<span class="fold-here-instructions">Fold here.</span>
 	
-					<section>
+					<section >
 						<h2 style="color: green;">Spoop</h2>
-						<p class="lead" style="color: brown;">Poop is life. Make sense of it.</p>
+						<p class="lead" >Unofficially the best way for Open Biome donors to track their poos.</p>
+						
 						<p>
 							
 								<code>#biome</code>
@@ -148,26 +261,33 @@
 								<code>#api</code>
 							
 						</p>
-						<small class="text-muted">The ultimate in unofficial poo tracking for Open Biome donors.</small>
+						
+						<small class="text-muted">Spoop iOS is an application for Open Biome donors to track their poos and poo donations. It connects securely with the web-based Spoop app&#43;API (http://spoop.info) to integrate donor-generated logs across web and mobile platforms. With Spoop, donors are able to track time of passage, weight, bristol score, donation status, and to use custom qualitative #tags and notes in an effort to contextualize and make sense of their own rhythms, habits, and biofeedback over time.</small>
 					</section>
 					<section class="p-2">
 	
 						
+						
 						<span class="ios-repo-link ios-github-link">
-							<a href="https://github.com/rotblauer/spoop">
+							<a href="https://github.com/rotblauer/spoop" target="_blank">
 								<i class="octicon octicon-mark-github"></i>
 							</a>
 						</span>
 						
 						
+						
+						
 						<span class="ios-repo-link ios-gogs-link">
-							<a href="http://goggable.areteh.co:300/rotblauer/spoop">
+							<a href="http://goggable.areteh.co:300/rotblauer/spoop" target="_blank">
 								<i class="octicon octicon-repo"></i>
 							</a>
 						</span>
 						
 						
-						<a href="https://itunes.apple.com/us/app/spoop/id1121224366?mt=8" style="display:inline-block;overflow:hidden;background:url(https://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-sm.svg) no-repeat;width: 100px; height:1em;">	</a>
+						
+						
+						<a href="https://itunes.apple.com/us/app/spoop/id1121224366?mt=8" style="display:inline-block;overflow:hidden;background:url(https://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-sm.svg) no-repeat;width: 100px; height:1em;" target="_blank" >	</a>
+						
 					</section>
 	
 					

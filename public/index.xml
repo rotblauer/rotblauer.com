@@ -1,16 +1,61 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Rotblauer &amp; Co.</title>
+    <title>Rotblauer &amp;&amp; Co.</title>
     <link>http://rotblauer.com/index.xml</link>
-    <description>Recent content on Rotblauer &amp; Co.</description>
+    <description>Recent content on Rotblauer &amp;&amp; Co.</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 12 Feb 2017 17:06:19 +0100</lastBuildDate>
+    <lastBuildDate>Mon, 13 Feb 2017 10:04:47 +0100</lastBuildDate>
     <atom:link href="http://rotblauer.com/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
-      <title>Blackjacked</title>
+      <title>Real:Time</title>
+      <link>http://rotblauer.com/ios/RealTime/</link>
+      <pubDate>Mon, 13 Feb 2017 10:04:47 +0100</pubDate>
+      
+      <guid>http://rotblauer.com/ios/RealTime/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Anagramatizer</title>
+      <link>http://rotblauer.com/ios/Anagramatizer/</link>
+      <pubDate>Mon, 13 Feb 2017 08:14:25 +0100</pubDate>
+      
+      <guid>http://rotblauer.com/ios/Anagramatizer/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>NewScience</title>
+      <link>http://rotblauer.com/ios/NewScience/</link>
+      <pubDate>Mon, 13 Feb 2017 08:14:15 +0100</pubDate>
+      
+      <guid>http://rotblauer.com/ios/NewScience/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Noonish</title>
+      <link>http://rotblauer.com/ios/Noonish/</link>
+      <pubDate>Mon, 13 Feb 2017 08:14:06 +0100</pubDate>
+      
+      <guid>http://rotblauer.com/ios/Noonish/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>CellOMatic</title>
+      <link>http://rotblauer.com/ios/CellOMatic/</link>
+      <pubDate>Mon, 13 Feb 2017 08:13:42 +0100</pubDate>
+      
+      <guid>http://rotblauer.com/ios/CellOMatic/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Black Jacked</title>
       <link>http://rotblauer.com/ios/blackjacked/</link>
       <pubDate>Sun, 12 Feb 2017 17:06:19 +0100</pubDate>
       
@@ -24,20 +69,7 @@
       <pubDate>Sun, 12 Feb 2017 13:54:56 +0100</pubDate>
       
       <guid>http://rotblauer.com/ios/spoop/</guid>
-      <description>
-
-  &lt;img src=&#34;http://rotblauer.com/img/rbapps/spoop/screenshots/ios///Simulator%20Screen%20Shot%206%20Jun%202016,%2009.32.41.png&#34; alt=&#34;&#34; class=&#34;img-fluid&#34;&gt;
-
-  &lt;img src=&#34;http://rotblauer.com/img/rbapps/spoop/screenshots/ios///Simulator%20Screen%20Shot%206%20Jun%202016,%2009.32.51.png&#34; alt=&#34;&#34; class=&#34;img-fluid&#34;&gt;
-
-  &lt;img src=&#34;http://rotblauer.com/img/rbapps/spoop/screenshots/ios///Simulator%20Screen%20Shot%206%20Jun%202016,%2009.33.04.png&#34; alt=&#34;&#34; class=&#34;img-fluid&#34;&gt;
-
-  &lt;img src=&#34;http://rotblauer.com/img/rbapps/spoop/screenshots/ios///Simulator%20Screen%20Shot%206%20Jun%202016,%2009.33.13.png&#34; alt=&#34;&#34; class=&#34;img-fluid&#34;&gt;
-
-  &lt;img src=&#34;http://rotblauer.com/img/rbapps/spoop/screenshots/ios///Simulator%20Screen%20Shot%206%20Jun%202016,%2009.33.37.png&#34; alt=&#34;&#34; class=&#34;img-fluid&#34;&gt;
-
-
-</description>
+      <description></description>
     </item>
     
   </channel>
