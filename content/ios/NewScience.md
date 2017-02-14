@@ -1,12 +1,16 @@
 +++
-screenshots_dir = ""
+screenshots_dir = "/img/rbapps/rules/screenshots/"
+screenshots = [
+"/img/rbapps/rules/screenshots/300x300bb-1.jpg",
+"/img/rbapps/rules/screenshots/300x300bb.jpg"
+]
 icon_path = "/img/rbapps/rules/icon.png"
 secondary_color = ""
 primary_color = ""
 description = "Cellular automata expedition one!"
-gogs_link = ""
+gogs_link = "http://goggable.areteh.co:3000/rotblauer/rules.git"
 website_link = ""
-github_link = ""
+github_link = "https://github.com/rotblauer/rules"
 name = "NewScience"
 abstract = "A New Kind of Science is a best-selling, controversial book by Stephen Wolfram, published by his own company in 2002. It contains an empirical and systematic study of computational systems such as cellular automata. Wolfram calls these systems simple programs and argues that the scientific philosophy and methods appropriate for the study of simple programs are relevant to other fields of science. New Science implements a simple set of one-dimensional binary cellular automaton rules that are pretty neat and computed directly on your device. Check out some of the favorites, or go through all 256!"
 title = "NewScience"
