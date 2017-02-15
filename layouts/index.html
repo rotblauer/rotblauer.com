@@ -23,14 +23,6 @@
                 </div>
             </div>
         </div>
-        <div class="row" style="position: absolute; bottom: 15%;">
-            <div class="col-xs-12 col-sm-8 col-md-6">
-                <div class="all-tags">
-                    {{ range $name, $taxonomy := .Site.Taxonomies.tags }}
-                    <code>#{{ $name }}</code> {{ end }}
-                </div>
-            </div>
-        </div>
     </div>
 
     <!-- <div class="row py-3 text-center">
@@ -76,7 +68,9 @@
 
     <!-- desk/tab -->
     <section class="row apps-section text-center p-3 hidden-xs-down " style="margin-top: 15%; margin-bottom: 25%;">
-        <div class="col-sm-6 offset-sm-3">
+
+
+      <div class="col-sm-6 offset-sm-3">
             <div class="row">
                 {{ range where .Site.Pages "Type" "ios" }}
                 <div class="col-3 my-2">
@@ -101,6 +95,8 @@
         </div>
         {{ end }}
     </section>
+
+
 </div>
 
 <script>

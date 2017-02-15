@@ -1,4 +1,4 @@
-$.get("https://api.github.com/orgs/rotblauer/repos", function (data, body, stat) {
+$.get("https://api.github.com/orgs/rotblauer/repos?type=sources", function (data, body, stat) {
 
     if (stat.status !== 200) { console.log(data, body, stat); return; }
 
