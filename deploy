@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
 
+
+hugo -D # hugo build ./public/, -D for buildDrafts, too
 rsync -avz --progress --exclude=".git" ./public/ freya:~/rotblauer.com/
