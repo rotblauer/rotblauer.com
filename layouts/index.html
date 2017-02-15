@@ -1,39 +1,39 @@
 {{ partial "header.html" .}}
 <div class="home ">
-	
-	<div class="cover">
-		<div class="row">
-			<div class="col-sm-6">
-				<div class="text-content">
-					<h1><span>Rotblauer && Co.</span></h1>
-					<p class="lead"><span class="pitch">It's like a startup.</span> <span class="about">We make art, build tech, and do science.</span><!-- &nbsp;<span class="kicker">And we like it!</span> --></p>
-					
-					<div class="hidden-sm-up mb-3">
-						<span class="badge badge-default"><a target="_blank" href="https://github.com/rotblauer" style="color: white;">
+
+    <div class="cover">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="text-content">
+                    <h1><span>Rotblauer && Co.</span></h1>
+                    <p class="lead"><span class="pitch">It's like a startup.</span> <span class="about">We make art, build tech, and do science.</span>
+                        <!-- &nbsp;<span class="kicker">And we like it!</span> --></p>
+
+                    <div class="hidden-sm-up mb-3">
+                        <span class="badge badge-default"><a target="_blank" href="https://github.com/rotblauer" style="color: white;">
 							<i class="octicon octicon-mark-github"></i> github.com/rotblauer
 						</a></span>
-						
-					</div>
-					
-				</div>
-			</div>
-			<div class="col-sm-6">
-				<div class="text-content-right hidden-xs-down">
-				</div>
-			</div>
-		</div>
-		<div class="row" style="position: absolute; bottom: 15%;">
-			<div class="col-xs-12 col-sm-8 col-md-6">
-				<div class="all-tags">
-					{{ range $name, $taxonomy := .Site.Taxonomies.tags }}
-					<code>#{{ $name }}</code>
-					{{ end }}
-				</div>
-			</div>
-		</div>
-	</div>
 
-	<!-- <div class="row py-3 text-center">
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="text-content-right hidden-xs-down">
+                </div>
+            </div>
+        </div>
+        <div class="row" style="position: absolute; bottom: 15%;">
+            <div class="col-xs-12 col-sm-8 col-md-6">
+                <div class="all-tags">
+                    {{ range $name, $taxonomy := .Site.Taxonomies.tags }}
+                    <code>#{{ $name }}</code> {{ end }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class="row py-3 text-center">
 		<div class="col">
 			<a href="/portfolio" class="text-grass"><h2 class="lead"><i class="octicon octicon-repo"></i> Portfolio</h2></a>
 		</div>
@@ -42,111 +42,116 @@
 </div>
 
 <div class="portfolio-wrapper container" style="background-color: white;">
-	<!-- websites -->
-	<div class="row text-center text-primary" style="margin-top: 30px; ">
-		<div class="col-12" style=" padding-top: 20px;">
-			<button id="sites-section-nav" class="btn btn-outline-info">
-				<i class="octicon octicon-link"></i> Sites
-			</button>
-			&nbsp;&nbsp;
-			<button id="apps-section-nav" class="btn btn-outline-info">
-				<i class="octicon octicon-device-mobile"></i> iOS Apps
-			</button>
-		</div>
-	</div>
-	
-	<div id="sites-section" class="section row" style="margin-top: 6%;">
-		{{ range where .Site.Pages "Type" "web" }}
-		<div class="col-sm-6 p-0 my-3 text-center text-muted" style="">
-			<span class="lead">{{ .Title | markdownify | emojify }}</span><br>
-			<small class="">{{ .Params.description | markdownify | emojify }}</small>
-			<img src="{{ .Params.screenshot }}" alt="" class="img-fluid">
-			<p>
-				<div style="display: inline-block;">
-					<a target="_blank" href="{{ .Params.web_link }}">
-						<i class="octicon octicon-link-external"></i> {{ .Params.web_link }}
-					</a>
-				</div>
-				{{ if .Params.github_link }}
-				<div style="display: inline-block;">&nbsp;<a target="_blank" href="{{ .Params.github_link }}"><i class="octicon octicon-mark-github"></i> {{ .Params.github_link }} </a></div>
-				{{ end }}
-			</p>
-		</div>
-		{{ end }}
-	</div>
-	
-	<!-- ios apps -->
-	
-	<!-- desk/tab -->
-	<section class="row apps-section text-center p-3 hidden-xs-down " style="margin-top: 15%; margin-bottom: 25%;">
-		<div class="col-sm-6 offset-sm-3">
-		<div class="row">
-		{{ range where .Site.Pages "Type" "ios" }}
-		<div class="col-3 my-2">
-			<a href="{{ .Permalink }}">
-				<img src="{{ .Params.icon_path}}" alt="" class="img-fluid rounded">
-				<small class="text-muted">{{ .Params.name }}</small>
-			</a>
-		</div>
-		{{ end }}
-		</div>
-		</div>
-	</section>
-	
-	<!-- phone -->
-	<section class="row apps-section text-center p-3 hidden-sm-up" style="margin-top: 15%; margin-bottom: 25%;">
-		{{ range where .Site.Pages "Type" "ios" }}
-		<div class="col-3 my-2">
-			<a href="{{ .Permalink }}">
-				<img src="{{ .Params.icon_path}}" alt="" class="img-fluid rounded">
-				<small class="text-muted">{{ .Params.name }}</small>
-			</a>
-		</div>
-		{{ end }}
-	</section>
+    <div class="row text-center text-info pt-3 mt-2">
+      <div class="col">
+        <i class="mega-octicon octicon-book"></i><br/>
+        Portfolio </div>
+    </div>
+    <!-- websites -->
+    <div class="row text-center text-primary" style="margin-top: 30px; ">
+        <div class="col-12" style=" padding-top: 20px;"> <button id="sites-section-nav" class="btn btn-outline-info"> <i class="octicon octicon-link"></i> Sites </button> &nbsp;&nbsp; <button id="apps-section-nav" class="btn btn-outline-info"> <i class="octicon octicon-device-mobile"></i> iOS Apps </button> </div>
+    </div>
+
+    <div id="sites-section" class="section row" style="margin-top: 6%;">
+        {{ range where .Site.Pages "Type" "web" }}
+        <div class="col-sm-6 p-0 my-3 text-center" style="">
+            <span class="lead">{{ .Title | markdownify | emojify }}</span><br>
+            <small class="text-muted">{{ .Params.description | markdownify | emojify }}</small>
+            <img src="{{ .Params.screenshot }}" alt="" class="img-fluid">
+            <p>
+                <div style="display: inline-block;">
+                    <a target="_blank" href="{{ .Params.web_link }}">
+                        <i class="octicon octicon-link-external"></i> {{ .Params.web_link }}
+                    </a>
+                </div>
+                {{ if .Params.github_link }}
+                <div style="display: inline-block;">&nbsp;<a target="_blank" href="{{ .Params.github_link }}"><i class="octicon octicon-mark-github"></i> {{ .Params.github_link }} </a></div>
+                {{ end }}
+            </p>
+        </div>
+        {{ end }}
+    </div>
+
+    <!-- ios apps -->
+
+    <!-- desk/tab -->
+    <section class="row apps-section text-center p-3 hidden-xs-down " style="margin-top: 15%; margin-bottom: 25%;">
+        <div class="col-sm-6 offset-sm-3">
+            <div class="row">
+                {{ range where .Site.Pages "Type" "ios" }}
+                <div class="col-3 my-2">
+                    <a href="{{ .Permalink }}">
+                        <img src="{{ .Params.icon_path}}" alt="" class="img-fluid rounded">
+                        <small class="text-muted">{{ .Params.name }}</small>
+                    </a>
+                </div>
+                {{ end }}
+            </div>
+        </div>
+    </section>
+
+    <!-- phone -->
+    <section class="row apps-section text-center p-3 hidden-sm-up" style="margin-top: 15%; margin-bottom: 25%;">
+        {{ range where .Site.Pages "Type" "ios" }}
+        <div class="col-3 my-2">
+            <a href="{{ .Permalink }}">
+                <img src="{{ .Params.icon_path}}" alt="" class="img-fluid rounded">
+                <small class="text-muted">{{ .Params.name }}</small>
+            </a>
+        </div>
+        {{ end }}
+    </section>
 </div>
 
 <script>
-	var $sitesButton = $("#sites-section-nav");
-	var  $appsButton = $("#apps-section-nav");
-	var $sitesSection = $("#sites-section");
-	var  $appsSections = $(".apps-section");
+    var $sitesButton = $("#sites-section-nav");
+    var $appsButton = $("#apps-section-nav");
+    var $sitesSection = $("#sites-section");
+    var $appsSections = $(".apps-section");
 
-	function initViewPref() {
-		var p = localStorage.getItem("porfolio_view_preference");
-		if (p === null) {
-			setViewPreference("sites");
-			return 
-		}
-		setViewPreference(p);
-	}
+    function initViewPref() {
+        var p = localStorage.getItem("porfolio_view_preference");
+        if (p === null) {
+            setViewPreference("sites");
+            return
+        }
+        setViewPreference(p);
+    }
 
-	function setViewPreference(pref) {
-		if (pref === "sites") {
-			$sitesSection.show();
-			$appsSections.hide();
-			$appsButton.removeClass("active");
-			$sitesButton.addClass("active");
-		} else {
-			$sitesSection.hide();
-			$appsSections.show();
-			$appsButton.addClass("active");
-			$sitesButton.removeClass("active");
-		}
-		return localStorage.setItem("porfolio_view_preference", pref);
-	}
+    function setViewPreference(pref) {
+        if (pref === "sites") {
+            $sitesSection.show();
+            $appsSections.hide();
+            $appsButton.removeClass("active");
+            $sitesButton.addClass("active");
+        } else {
+            $sitesSection.hide();
+            $appsSections.show();
+            $appsButton.addClass("active");
+            $sitesButton.removeClass("active");
+        }
+        return localStorage.setItem("porfolio_view_preference", pref);
+    }
 
-	$sitesButton.on("click", function () {
-		setViewPreference("sites");
-	});
-	$appsButton.on("click", function () {
-		setViewPreference("apps");
-	});
+    $sitesButton.on("click", function() {
+        setViewPreference("sites");
+    });
+    $appsButton.on("click", function() {
+        setViewPreference("apps");
+    });
 
-	initViewPref();
+    initViewPref();
 </script>
 
+<div class="container-fluid">
+
+    <div class="row text-center text-muted py-3 my-3">
+        <div class="col">
+            <i class="mega-octicon octicon-mark-github"></i><br/> Rotblauer on Github
+        </div>
+    </div>
+</div>
 
 
 
-{{ partial "footer.html" .}}
+{{ partial "github_repos.html" . }} {{ partial "footer.html" .}}
