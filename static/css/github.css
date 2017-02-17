@@ -19,3 +19,11 @@ path.arrow, #arrowhead {
   stroke: lightgray;
   opacity: 0.5;
 }
+
+#shootsAndLadders {
+    height: 100vh;
+    font-size: 0.8em;
+}
+#shootsAndLadders p {
+    margin-bottom: 0px;
+}

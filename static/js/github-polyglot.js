@@ -47,7 +47,8 @@ var ensureGetAllAndSave = function(data, status, req) {
         return;
     }
     console.log("Got all repos.");
-    localStorage.setItem("repos", allRepos);
+    localStorage.setItem("repos", JSON.stringify(allRepos));
+    return allRepos;
 };
 
 
@@ -71,42 +72,76 @@ function getAllLanguages(repos) {
     return deferreds;
 }
 
+function getAllContributors(repos) {
+    var deferreds = [];
+
+    for (var i = 0; i < repos.length; i++) {
+        console.log("getting repo contributors", repos[i], i);
+        deferreds.push(
+            $.get(baseUrl + "/repos/" + repos[i].full_name + "/stats/contributors", function(data, status, req) {
+                if (status !== "success") {
+                    console.log("!success", status);
+                    return;
+                }
+                return data;
+            })
+        );
+    }
+    return deferreds;
+}
+
 
 // waits until we get ajax responses for all language datas
 function fetchAndSetLanguages(repos) {
     var languageDatas = getAllLanguages(repos);
+    // var contributorsData = getAllContributors(repos);
+
     $.when.apply(null, languageDatas).done(function() {
-        console.log("all done", repos, allRepos);
         for (i in languageDatas) {
-            allRepos[i]["languages_data"] = languageDatas[i].responseJSON;
+            allRepos[i]["languages_data"] = languageDatas[i].responseJSON; // sure these in right order?? think so cuz promise
         }
-        localStorage.setItem("repos", JSON.stringify(allRepos));
-        console.log(JSON.parse(localStorage.getItem("repos")));
-        gotRepos(allRepos);
-    });
+    })
+
+    // .then(function () {
+
+    // $.when.apply(null, contributorsData).done(function() {
+    //     for (i in contributorsData) {
+    //         allRepos[i]["contributors"] = contributorsData[i];
+    //     }
+    //     localStorage.setItem("repos", JSON.stringify(allRepos));
+    //     console.log(JSON.parse(localStorage.getItem("repos")));
+    //     gotRepos(allRepos);
+    // });
+
+    // })
+    ;
 }
 
 function fetchRepos(path) {
-    return $.get(baseUrl + path, ensureGetAllAndSave).done(function() {
+    return $.get(baseUrl + path).then(ensureGetAllAndSave).done(function() {
         fetchAndSetLanguages(getStoredRepos());
     });
 };
 
 function getStoredRepos() {
-    return localStorage.getItem("repos");
+    return JSON.parse(localStorage.getItem("repos"));
 }
 
 $(function() {
     // query github api for all repos for rb if they're not stored already
     if (!getStoredRepos()) {
+
         console.log("no stored repos. grabbing em.");
         fetchRepos("/orgs/rotblauer/repos"); //calls gotRepos(allRepos) on completion
+
     } else {
         allRepos = JSON.parse(localStorage.getItem("repos"));
         console.log("have stored repos", allRepos.length);
         // fetchRepos("/orgs/rotblauer/repos");
+        // fetchAndSetLanguages(allRepos);
         gotRepos(allRepos);
     }
+
 });
 
 function drawRepoLegos(repos) {
@@ -257,11 +292,11 @@ function drawSteppingStones(repos) {
         .data(repos)
         .enter()
         .append("path")
-            .attr("class", "arrow")
+        .attr("class", "arrow")
         .attr('marker-end', 'url(#arrowhead)')
         // .datum([[100,200],[300,400]])
         .datum(function(d, i) {
-            var start = [100, labelLineHeight*i + (  h / 2  ) + ( labelLineHeight/2 )];
+            var start = [100, labelLineHeight * i + (h / 2) + (labelLineHeight / 2)];
             var end = [];
             var cdate = new Date(d.created_at);
             var ddiff = cdate - new Date(first.created_at);
@@ -286,7 +321,7 @@ function drawLanguageBar(repos) {
     console.log(width, height);
 
     var totalBytes = totalLangBytes(stats);
-    console.log(Humanize.filesize(totalBytes));
+    // console.log(Humanize.filesize(totalBytes));
 
     stats = _.sortBy(stats, function(o) {
         return -o.count;
@@ -309,6 +344,180 @@ function drawLanguageBar(repos) {
             }
         });
 
+}
+
+function drawShootsAndLadders(repos) {
+    var box = d3.select("#shootsAndLadders");
+
+    var width = box.node().getBoundingClientRect().width;
+    var height = box.node().getBoundingClientRect().height;
+
+    var biggestSize = _.max(repos, function(o) {
+        return o.size;
+    }).size;
+
+    // number of columns across
+    var numCols = 4;
+    var colWidth = width / numCols;
+
+    var titleLineHeight = 14;
+    var titleTextHeight = 10;
+    var descLinHeight = 12;
+    var descTextHeight = 10;
+
+    var barHeight = 18;
+
+    var unitHeight = titleLineHeight + titleTextHeight + descTextHeight + descLinHeight + barHeight;
+
+    var units = box.selectAll("div")
+        .data(repos)
+        .enter()
+        .append("div")
+        .attr("class", "col-3")
+        // .style("height", barHeight + "px")
+        // .style("width", colWidth + "px")
+        .style("border", "1px solid pink");
+
+    var titles = units.append("p")
+        .text(function(d) {
+            return d.name;
+        });
+
+    var descs = units.append("small")
+        .text(function(d) {
+            return d.description;
+        });
+
+}
+
+function drawRepoStacks(repos) {
+    var box = d3.select("#stacks");
+
+    var width = box.node().getBoundingClientRect().width;
+    var height = box.node().getBoundingClientRect().height;
+
+    var biggestSize = _.max(repos, function(o) {
+        return o.size;
+    }).size;
+
+    var rd = (width) / Math.log(biggestSize);
+
+    var blocks = box.selectAll("div")
+        .data(repos)
+        .enter()
+            .append("div")
+            .attr("class", "text-center")
+            .style("margin-top", function (d) {
+                return Math.log(d.size) * Math.random()*3 + "px";
+            })
+            .style("margin-bottom", function (d) {
+                return Math.log(d.size) * Math.random()*3 + "px";
+            })
+            .style("margin-left", "auto")
+            .style("margin-right", "auto")
+                   // .style("border", "1px solid pink")
+    ;
+
+    var langblocks = blocks.selectAll("div")
+        .data(function(o) {
+            var a = [];
+            var ks = _.keys(o.languages_data);
+            for (i in ks) {
+                a.push({
+                    name: ks[i],
+                    count: o.languages_data[ks[i]]
+                });
+            }
+            // console.log(a);
+            return _.sortBy(a, function(o) {
+                return o.name;
+            });
+        })
+        .enter()
+        .append("div")
+        .style("height", "20px")
+        .style("display", "inline-block")
+        .style("margin", "2px")
+        .style("width", function(d) {
+            return Math.log(d.count) * 2 + "px";
+        })
+        .style("background-color", function(d) {
+            var c = github_language_colors[d.name];
+            if (typeof(c) !== "undefined") {
+                // console.log(d.name, c["color"]);
+                return c["color"] || "black";
+            } else {
+                return "pink";
+            }
+        });
+
+    var langlabels = langblocks.append("span")
+            .text(function (d) {
+                return d.name;
+            })
+            .style("font-size", "0.4rem")
+            // .attr("class", "text-muted")
+            .style("font-weight", "250")
+            .style("display", "block")
+            .style("color", function(d) {
+                var c = github_language_colors[d.name];
+                if (typeof(c) !== "undefined") {
+                    // console.log(d.name, c["color"]);
+                    return c["color"] || "black";
+                } else {
+                    return "pink";
+                }
+     
+            })
+            .style("transform", "translateY(-25px) rotate(300deg) ");
+    ;
+
+
+
+    var metadata = blocks
+        .append("a")
+        .attr("href", function(d) {
+            return d.html_url;
+        })
+        .attr("target", "_blank")
+        .style("color", "black")
+        .style("line-height", "20px")
+        .style("font-size", "1rem")
+        .style("font-weight", "500")
+        // .style("margin-left", "1rem")
+        .style("display", "block")
+        .text(function(d) {
+            return d.name;
+        });
+
+    var submetadata = blocks
+            .append("p")
+            .style("font-size", "0.6rem")
+            .style("font-weight", "250")
+            .attr("class", "text-muted")
+            .text(function (d) {
+                return d.description;
+            })
+            .append("p")
+            .style("font-size", "0.6rem")
+            .style("font-weight", "250")
+            .attr("class", "text-muted")
+            .text(function (d) {
+                return Humanize.filesize(d.size);
+            })
+;
+
+
+    // var dictionary = box.append("div").attr("class", "row");
+
+    // dictionary.style("border", "1px solid pink");
+
+    // var lookups = dictionary.selectAll("div")
+    //         .data(repos)
+    //         .enter()
+    //         .append("div")
+    //         .attr("class", "col-4")
+    //         .text(function (d) { return d.name; });
 }
 
 // total number of bytes for all languages
@@ -355,6 +564,7 @@ function tallyRepoLanguageBytes(repos) {
 }
 
 function gotRepos(repos) {
+    console.log("have got repos", repos);
     // sort by most recent on top
     sorted = _.sortBy(allRepos, function(o) {
         var dt = new Date(o.updated_at);
@@ -367,128 +577,7 @@ function gotRepos(repos) {
 
     // drawRepoLegos(sorted);
     // drawLanguageBar(sorted);
-    drawSteppingStones(sorted);
+    // drawSteppingStones(sorted);
+    // drawShootsAndLadders(sorted);
+    drawRepoStacks(sorted);
 }
-
-// // var getLanguage = function(url) {
-// // }
-
-//   function drawTreemap(height,width,elementSelector,language_bytes,childrenFunction,nameFunction,sizeFunction,colorFunction,colorScale){
-
-//       console.log("drawing treemap");
-//       console.log(language_bytes);
-//       var treemap = d3.layout.treemap()
-//           .children(childrenFunction)
-//           .size([width,height])
-//           .value(sizeFunction);
-
-//       var div = d3.select(elementSelector)
-//           .append("div")
-//           .style("position","relative")
-//           .style("width",width + "px")
-//           .style("height",height + "px");
-
-//       div.data(language_bytes).selectAll("div")
-//           .data(function(d){return treemap.nodes(d);})
-//           .enter()
-//           .append("div")
-//           .attr("class","cell")
-//           .style("background",function(d){ return colorScale(colorFunction(d));})
-//           .call(cell)
-//           .text(nameFunction);
-//   }
-
-//   function cell(){
-//       this
-//           .style("left",function(d){return d.x + "px";})
-//           .style("top",function(d){return d.y + "px";})
-//           .style("width",function(d){return d.dx - 1 + "px";})
-//           .style("height",function(d){return d.dy - 1 + "px";});
-//   }
-
-
-
-// // set the ranges
-// var x = d3.scale.ordinal().rangeRoundBands([0, width], .05);
-
-// var y = d3.scale.linear().range([height, 0]);
-
-// // define the axis
-// var xAxis = d3.svg.axis()
-//     .scale(x)
-//         .orient("bottom");
-
-
-// var yAxis = d3.svg.axis()
-//     .scale(y)
-//     .orient("left")
-//     .ticks(10);
-
-
-
-// // load the data
-// var data = languageByteCount;
-
-//     // scale the range of the data
-//     x.domain(data.map(function(d) {
-//         return d.name;
-//     }));
-//     y.domain([0, d3.max(data, function(d) {
-//         return d.count;
-//     })]);
-
-//     // add axis
-//     svg.append("g")
-//         .attr("class", "x axis")
-//         .attr("transform", "translate(0," + height + ")")
-//         .call(xAxis)
-//         .selectAll("text")
-//         .style("text-anchor", "end")
-//         .attr("dx", "-.8em")
-//         .attr("dy", "-.55em")
-//         .attr("transform", "rotate(-90)");
-
-//     svg.append("g")
-//         .attr("class", "y axis")
-//         .call(yAxis)
-//         .append("text")
-//         .attr("transform", "rotate(-90)")
-//         .attr("y", 5)
-//         .attr("dy", ".71em")
-//         .style("text-anchor", "end")
-//         .text("Frequency");
-
-// console.log(github_language_colors);
-
-//     // Add bar chart
-//     svg.selectAll("bar")
-//         .data(data)
-//         .enter().append("rect")
-//         .attr("class", "bar")
-//         .attr("x", function(d) {
-//             return x(d.Letter);
-//         })
-//         .attr("width", x.rangeBand())
-//         .attr("y", function(d) {
-//             return y(d.Freq);
-//         })
-//         .attr("height", function(d) {
-//             return height - y(d.Freq);
-//         })
-//         .style("background",function(d){ console.log(d.name); return  "blue" ; }) // github_language_colors[d.name]['color']; })
-// ;
-
-
-// // // // $.when(allRepos).done()
-// // var language_bytes = {name: "language_bytes", elements: languageByteCount};
-// // console.log(language_bytes);
-// // var childrenFunction = function(d){return d.elements};
-// // var sizeFunction = function(d){return d.count;};
-// // var colorFunction = function(d){return Math.floor(Math.random()*20)};
-// // var nameFunction = function(d){return d.name;};
-
-// var color = d3.scale.linear()
-//         .domain([0,10,15,20])
-//         .range(["grey","green","yellow","red"]);
-
-// drawTreemap(600, 1000, '#byte_freq', language_bytes, childrenFunction, nameFunction, sizeFunction, colorFunction, color);
