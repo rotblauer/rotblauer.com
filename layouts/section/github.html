@@ -1,0 +1,27 @@
+{{ partial "header.html" .}}
+
+<script src="https://d3js.org/d3.v4.min.js"></script>
+
+<!-- github -->
+<script src="/js/github-language-colors.js"></script>
+<script src="/js/github.js"></script>
+<script src="/js/swoopy-arrow.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/humanize-plus/1.8.2/humanize.min.js"></script>
+<link href="/css/github.css" rel="stylesheet" />
+
+<marker id="arrowhead" viewBox="-10 -10 20 20" refX="0" refY="0" markerWidth="20" markerHeight="20" stroke-width="1" orient="auto"><polyline stroke-linejoin="bevel" points="-6.75,-6.75 0,0 -6.75,6.75"></polyline></marker>
+
+<div id="github-section-body" class="container">
+    <h1>github</h1>
+    <div id="language-bar" class="row">
+    </div>
+    <div id="infograph" class="row">
+    </div>
+
+    <div id="steppers" class="row">
+      
+    </div>
+</div>
+
+<script src="/js/github-polyglot.js"></script>
+</body>

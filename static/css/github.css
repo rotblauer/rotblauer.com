@@ -1,0 +1,21 @@
+h1 {
+    color: pink;
+}
+
+#infograph {
+    
+}
+
+#language-bar {
+    height: 40px;
+}
+
+#steppers {
+    height: 100vh; 
+}
+
+path.arrow, #arrowhead {
+  fill: none;
+  stroke: lightgray;
+  opacity: 0.5;
+}
