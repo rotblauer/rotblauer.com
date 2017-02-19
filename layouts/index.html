@@ -40,12 +40,18 @@
 
 </div>
 
-<script>
- $.get("http://track.areteh.co:3001/api/race", function (data, status, body) {
-     if (status !== "success") { console.log(status); return; }
-     $("#number-of-cattracks").html(data.all.team.count);
-     });
-</script>
+<div class="row my-3">
+  <div class="container my-3">
+    {{ partial "github-dots-graph.html" . }} 
+  </div>
+</div>
+
+<!-- <script> -->
+<!-- $.get("http://track.areteh.co:3001/api/race", function (data, status, body) { -->
+<!-- if (status !== "success") { console.log(status); return; } -->
+<!-- $("#number-of-cattracks").html(data.all.team.count); -->
+<!-- }); -->
+<!-- </script> -->
 
 <!-- <div class="row text-center text-info pt-3 mt-2">
      <div class="col">

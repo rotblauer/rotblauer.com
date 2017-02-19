@@ -1,16 +1,50 @@
+// arg: repos
+// returns: [{name: "Go", count: 100}, {name:"Javascript", count:40}, {}...]
+function tallyRepoLanguageBytes(repos) {
+    var languages_bytes_master = {};
+    var languageByteCount = []; //return this one
+
+    // this makes language_bytes_maseter ->
+    // {"HTML": 1000, "Go": 100000} ie a master tallier
+    // sums each language
+    _.each(repos, function(o) {
+        // console.log(o);
+        for (i in o.languages_data) {
+            // console.log(i, o.languages_data[i]);
+
+            if (!languages_bytes_master[i]) {
+                languages_bytes_master[i] = o.languages_data[i];
+            } else {
+                languages_bytes_master[i] += o.languages_data[i];
+            }
+        }
+    });
+
+    // this just takes the master tallier and makes an objecty array out of it
+    // -> [{name:"HTML", count: 1000}, {name:"Go", count: 10000}]
+    for (i in languages_bytes_master) {
+        languageByteCount.push({
+            name: i,
+            count: languages_bytes_master[i]
+        });
+    }
+    return languageByteCount;
+}
+function drawGithubDots(repos) {
+    
 var box = d3.select("#github-dots");
 
 var margin = {
         top: 50,
         right: 20,
         bottom: 20,
-        left: 100
+        left: 50
     },
     width = box.node().getBoundingClientRect().width,
     height = 1400;
 
 
-var repos = _.sortBy(getSavedRepos(), function(o) {
+var repos = _.sortBy(repos, function(o) {
         return -(new Date(o.updated_at));
     }),
     languages = _.sortBy(tallyRepoLanguageBytes(repos), function(o) {
@@ -44,7 +78,7 @@ console.log(uniqueLanguageNames, langColors);
 
 // langauges
 var xScale = d3.scalePoint()
-    .range([margin.left, width - margin.right])
+    .range([margin.left*2, width - margin.right])
     .domain(uniqueLanguageNames);
 
 // repos
@@ -86,9 +120,30 @@ glob.append("g")
     .call(xAxis);
 
 glob.append("g")
-    .attr("transform", "translate(" + margin.left*0.75 + "," + margin.top + " )")
-    .attr("class", "axis")
-    .call(yAxis);
+    .selectAll("text")
+    .data(repos)
+    .enter()
+        .append("a")
+        .attr("xlink:href", function (d) {
+            return d.html_url;
+        })
+        .attr("target", "_blank")
+    .append("text")
+    .text(function (o) {
+        return o.name;
+    })
+    .attr("y", function (d) {
+        return yScale(d.name) + margin.top;
+    })
+    .attr("x", 0)
+        .attr("fill", "#888")
+    // .attr("text-anchor", "end")
+;
+
+// glob.append("g")
+//     .attr("transform", "translate(" + margin.left*0.75 + "," + margin.top + " )")
+//     .attr("class", "axis")
+//     .call(yAxis);
 
 
 repoGroups = svg.selectAll('.repo')
@@ -298,3 +353,4 @@ repoGroups.each(function(d, j) {
 // 		d3.select(g).selectAll("text.value").style("display","none");
 // 	}
 // });
+}

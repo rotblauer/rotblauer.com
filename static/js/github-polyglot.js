@@ -428,7 +428,6 @@ function gotRepos(repos) {
     sources = _.filter(sorted, function(o) {
         return !o.fork;
     });
-
     // drawRepoLegos(sorted);
     // drawLanguageBar(sorted);
     // drawSteppingStones(sorted);

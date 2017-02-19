@@ -174,5 +174,48 @@ function fetchRepos(path, cb) {
         .then(getSavedRepoLanguages);
         // .then(getSavedRepoContributorStats);
 };
+function gotRepos(repos) {
+
+    // // sort by most recent on top
+    // sorted = _.sortBy(repos, function(o) {
+    //     var dt = new Date(o.updated_at);
+    //     return -dt;
+    // });
+    // // sort by only our sources
+
+    // sources = _.filter(sorted, function(o) {
+    //     return !o.fork;
+    // });
+
+    // drawRepoLegos(sorted);
+    // drawLanguageBar(sorted);
+    // drawSteppingStones(sorted);
+    // drawShootsAndLadders(sorted);
+    // drawRepoStacks(sorted);
+    drawGithubDots(repos);
+}
+$(function() {
+    // query github api for all repos for rb if they're not stored already
+    var r = getSavedRepos();
+    if (!r) {
+
+        console.log("No stored repos. Grabbing em.");
+        fetchRepos("/orgs/rotblauer/repos")
+            .then(function() {
+                console.log("finished getting everything");
+                // showLocalRepos();
+                gotRepos(getSavedRepos());
+            });
+
+    } else {
+
+        // console.log("Have repos locally.");
+        // console.dir(r);
+
+        gotRepos(r);
+
+    }
+
+});
 
 
