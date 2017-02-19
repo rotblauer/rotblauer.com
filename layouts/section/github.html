@@ -1,6 +1,5 @@
 {{ partial "header.html" .}}
 
-<script src="https://d3js.org/d3.v4.min.js"></script>
 
 <!-- github -->
 <script src="/js/github-language-colors.js"></script>
@@ -9,7 +8,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/humanize-plus/1.8.2/humanize.min.js"></script>
 <link href="/css/github.css" rel="stylesheet" />
 
-<script src="/js/get-github.js"></script>
+<!-- <script src="/js/get-github.js"></script> -->
 
 <div id="github-section-body" class="container">
 
@@ -31,23 +30,21 @@
 
     {{ partial "github-dots-graph.html" . }}
 
-  <div class="row my-3 py-3" style="font-size: 0.7rem;">
-    <div class="col">
-      <p>
-        <a href="https://github.com/rotblauer"><i class="octicon octicon-mark-github"></i>/rotblauer</a>
-      </p>
-      <p class="text-muted">
-        Something-like-a-map of our repositories on Github. <br/>
-        Currently sorted by <strong>created_at</strong>, with the freshest on top.
-        <strong>#TODO</strong> sort by all kinds of things. <br/>
-        The language blocks show a <code>Math.log(repo.language[].size)</code>, so it's not exactly to scale.
-      </p>
-    </div>
-  </div>
+  <!-- <div class="row my-3 py-3" style="font-size: 0.7rem;"> -->
+  <!-- <div class="col"> -->
+  <!-- <p> -->
+  <!-- <a href="https://github.com/rotblauer"><i class="octicon octicon-mark-github"></i>/rotblauer</a> -->
+  <!-- </p> -->
+  <!-- <p class="text-muted"> -->
+  <!-- Something-like-a-map of our repositories on Github. <br/> -->
+  <!-- Currently sorted by <strong>created_at</strong>, with the freshest on top. -->
+  <!-- <strong>#TODO</strong> sort by all kinds of things. <br/> -->
+  <!-- The language blocks show a <code>Math.log(repo.language[].size)</code>, so it's not exactly to scale. -->
+  <!-- </p> -->
+  <!-- </div> -->
+  <!-- </div> -->
 
-    <div id="stacks" class="row my-3 py-3" >
-        
-    </div>
+  <div id="stacks" class="row my-3 py-3" ></div>
 
     <!-- <div class="row"> -->
     <!-- <pre id="repos-preview"> -->
@@ -55,5 +52,5 @@
     <!-- </div> -->
 </div>
 
-<script src="/js/github-polyglot.js"></script>
+<!-- <script src="/js/github-polyglot.js"></script> -->
 </body>

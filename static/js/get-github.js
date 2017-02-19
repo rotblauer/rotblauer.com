@@ -65,53 +65,56 @@ function showLocalRepos() {
     $("#repos-preview").html(syntaxHighlight(getSavedRepos().slice(0,2)));
 }
 
-var allRepos = [];
-var repoPageReqs = [];
-
-function receivedReposPage(data, status, req) {
-
-    //handle error
-    if (status !== "success") {
-        console.log(data, status, req);
-        return;
-    }
-
-    console.log("Received repos from Github:", data);
-    for (i in data) {
-        allRepos.push(data[i]);
-    }
-    saveRepos(allRepos);
-    showLocalRepos(); // viz
-    var headerLink = req.getResponseHeader("Link");
-    var headerLinkNext = parseLinkHeader(headerLink)["next"];
-    if (headerLinkNext) {
-        console.log("Following 'next' header link, collecting paginated repos.");
-        repoPageReqs.push(downloadRepos(headerLinkNext));
-    } else {
-        repoPageReqs[0].resolve();
-    }
-}
-
-function downloadRepos(path) {
-    return $.get(path, receivedReposPage);
-}
-
 function downloadAllRepos(path) {
-    repoPageReqs.push($.Deferred());
-    repoPageReqs.push(downloadRepos(path));
-    return $.when.apply(null, repoPageReqs);
+    var deferred = $.Deferred(),
+        repos = [];
+
+    function receivedReposPage(data, status, req) {
+        //handle error
+        if (status !== "success") {
+            deferred.reject(data, status, req);
+            return;
+        }
+
+        // both these should work, neither does
+        // repos.push.apply(repos, data);
+        // repos.concat(data);
+        // but this oldskool mofo does
+        for (var i = 0; i < data.length; i++) {
+            repos.push(data[i]);
+        }
+
+        // save to localStorage
+        saveRepos(repos);
+
+        deferred.notify(repos.length);
+
+        var linkHeader = parseLinkHeader(req.getResponseHeader("Link"));
+        if (linkHeader && linkHeader.next) {
+            console.log("Following 'next' header link, collecting paginated repos.");
+            getPage(linkHeader.next);
+        } else {
+            deferred.resolve(repos);
+        }
+    }
+
+    function getPage(path) {
+        $.get(path, receivedReposPage);
+    }
+    getPage(path);
+
+    return deferred.promise();
 }
 
 
-function getSavedRepoLanguages() {
-    var languageDatas = getAllLanguages(getSavedRepos());
-    return $.when.apply(null, languageDatas).done(function() {
-        var r = getSavedRepos();
-        for (i in languageDatas) {
-            r[i]["languages_data"] = languageDatas[i].responseJSON; // sure these in right order?? think so cuz promise
+function fetchLanguages(repos) {
+    var languageDatas = getAllLanguages(repos);
+    return $.when.apply(null, languageDatas).then(function() {
+        for (var i = 0; i < languageDatas.length; i++) {
+            repos[i]["languages_data"] = languageDatas[i].responseJSON; // sure these in right order?? think so cuz promise
         }
-        saveRepos(r);
-        showLocalRepos();
+        saveRepos(repos);
+        return repos;
     });
 }
 
@@ -123,7 +126,6 @@ function getSavedRepoContributorStats() {
             r[i]["contributors"] = contributorsData[i];
         }
         saveRepos(r);
-        showLocalRepos();
     });
 };
 
@@ -171,51 +173,50 @@ function fetchRepos(path, cb) {
         .then(function() {
             console.log("finished downloading repos", getSavedRepos());
         })
-        .then(getSavedRepoLanguages);
+        .then(fetchLanguages);
         // .then(getSavedRepoContributorStats);
 };
-function gotRepos(repos) {
 
-    // // sort by most recent on top
-    // sorted = _.sortBy(repos, function(o) {
-    //     var dt = new Date(o.updated_at);
-    //     return -dt;
-    // });
-    // // sort by only our sources
-
-    // sources = _.filter(sorted, function(o) {
-    //     return !o.fork;
-    // });
-
-    // drawRepoLegos(sorted);
-    // drawLanguageBar(sorted);
-    // drawSteppingStones(sorted);
-    // drawShootsAndLadders(sorted);
-    // drawRepoStacks(sorted);
-    drawGithubDots(repos);
+function recentIsRecent(datey) {
+    if (datey === null) { return false; }
+    var d = Date.now();
+    var seconds = (d - Date.parse(datey)) / 1000;
+    // if within last 36 hours
+    if (seconds > 36*60*60) { return false; }
+    return true;
 }
-$(function() {
-    // query github api for all repos for rb if they're not stored already
+
+function fetchOrGetRepos(path) {
+    var defer = $.Deferred();
     var r = getSavedRepos();
-    if (!r) {
+    var recent = localStorage.getItem("repos_last_updated");
+    console.log(typeof(recent));
+    console.log(recent);
 
-        console.log("No stored repos. Grabbing em.");
-        fetchRepos("/orgs/rotblauer/repos")
-            .then(function() {
-                console.log("finished getting everything");
-                // showLocalRepos();
-                gotRepos(getSavedRepos());
-            });
-
+    // if (r && ( recent !== null ) && recentIsRecent(( recent ))) {
+    if (r) {
+        console.log("Using repos stored locally.");
+        defer.resolve(r);
     } else {
-
-        // console.log("Have repos locally.");
-        // console.dir(r);
-
-        gotRepos(r);
-
+        downloadAllRepos(baseUrl + path)
+            .progress(function (repoCount) {
+                console.log("Downloaded " + repoCount + " repo(s) so far...");
+            })
+            .success(function onSuccess (d) {
+                var day = Date.now();
+                console.log(day);
+                localStorage.setItem("repos_last_updated", day.toString() );
+                defer.resolve(d);
+            })
+            .failure(function (data, status, req) {
+                console.log(data, status, req);
+                defer.reject(data, status, req);
+            });
     }
 
-});
+    return defer.promise();
+}
+// "/orgs/rotblauer/repos"
+
 
 

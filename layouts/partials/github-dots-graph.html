@@ -4,8 +4,13 @@
   </a>
 </h3>
 
+<p class="text-muted">
+  These are our repos on Github. <br/>
+  The most recently <code>updated_at</code> are on the top.
+</p>
+
 <style type="text/css">
-body{font-family: Arial, sans-serif;font-size:10px;}
+ #github-dots {font-family: Arial, sans-serif;font-size:10px;}
  .axis path {fill: none;stroke:#fff;shape-rendering: crispEdges;} 
 
  .axis line {fill: none;stroke:#b6b6b6;shape-rendering: crispEdges;}
@@ -19,14 +24,11 @@ text.value{font-size:12px;font-weight:bold;}
 </style>
 
 
-<div id="github-dots" class="row" >
-  
+<div id="github-dots" class="row" style="height: 150vh;" >
 </div>
 
 
-
-<script src="https://d3js.org/d3.v4.min.js"></script>
 <script src="/js/github-language-colors.js"></script>
-<script src="/js/github-dots-graph.js"></script>
 <script src="/js/get-github.js"></script>
+<script src="/js/github-dots-graph.js"></script>
 <!-- <script src="/js/github-polyglot.js"></script> -->
