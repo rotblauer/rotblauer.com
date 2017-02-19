@@ -27,3 +27,10 @@ path.arrow, #arrowhead {
 #shootsAndLadders p {
     margin-bottom: 0px;
 }
+
+pre { padding: 5px; margin: 5px; }
+.string { color: green; }
+.number { color: darkorange; }
+.boolean { color: blue; }
+.null { color: magenta; }
+.key { color: red; }

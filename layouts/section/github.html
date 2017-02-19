@@ -9,8 +9,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/humanize-plus/1.8.2/humanize.min.js"></script>
 <link href="/css/github.css" rel="stylesheet" />
 
+<script src="/js/get-github.js"></script>
 
-<div id="github-section-body" class="container-fluid">
+<div id="github-section-body" class="container">
 
     <!-- <div id="language-bar" class="row"> -->
     <!-- </div> -->
@@ -23,6 +24,12 @@
 
     <!-- <div id="shootsAndLadders" class="row"> -->
     <!-- </div> -->
+
+
+  <!-- <div class="row my-3 py-3"> -->
+  <!-- </div> -->
+
+    {{ partial "github-dots-graph.html" . }}
 
   <div class="row my-3 py-3" style="font-size: 0.7rem;">
     <div class="col">
@@ -41,6 +48,11 @@
     <div id="stacks" class="row my-3 py-3" >
         
     </div>
+
+    <!-- <div class="row"> -->
+    <!-- <pre id="repos-preview"> -->
+    <!-- </pre> -->
+    <!-- </div> -->
 </div>
 
 <script src="/js/github-polyglot.js"></script>

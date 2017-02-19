@@ -1,149 +1,3 @@
-var baseUrl = "https://api.github.com";
-var allRepos = [];
-
-/*
- * parse_link_header()
- *
- * Parse the Github Link HTTP header used for pageination
- * http://developer.github.com/v3/#pagination
- */
-function parseLinkHeader(header) {
-    if (header.length == 0) {
-        throw new Error("input must not be of zero length");
-    }
-
-    // Split parts by comma
-    var parts = header.split(',');
-    var links = {};
-    // Parse each part into a named link
-    _.each(parts, function(p) {
-        var section = p.split(';');
-        if (section.length != 2) {
-            throw new Error("section could not be split on ';'");
-        }
-        var url = section[0].replace(/<(.*)>/, '$1').trim();
-        var name = section[1].replace(/rel="(.*)"/, '$1').trim();
-        links[name] = url;
-    });
-
-    return links;
-}
-
-
-
-// callback for github api ajax for repositories.
-// calls the $.get iteratively as long as there is a 'next' page.
-// ensures we get ALL repos for a given entity.
-// save entire collection of repos to localstorage to save on api hits and http wait times
-var ensureGetAllAndSave = function(data, status, req) {
-    // collect language urls
-    for (repo in data) {
-        allRepos.push(data[repo]);
-    }
-    var headerLink = req.getResponseHeader("Link");
-    var headerLinkNext = parseLinkHeader(headerLink)["next"];
-    if (headerLinkNext) {
-        $.get(headerLinkNext, ensureGetAllAndSave);
-        return;
-    }
-    console.log("Got all repos.");
-    localStorage.setItem("repos", JSON.stringify(allRepos));
-    return allRepos;
-};
-
-
-// bundles an indeterminate number of ajaxers to collect languages data for given
-// repo languages_url. returns a batch of deferreds
-function getAllLanguages(repos) {
-    var deferreds = [];
-
-    for (var i = 0; i < repos.length; i++) {
-        console.log("getting repo language", repos[i], i);
-        deferreds.push(
-            $.get(repos[i].languages_url, function(data, status, req) {
-                if (status !== "success") {
-                    console.log("!success", status);
-                    return;
-                }
-                return data;
-            })
-        );
-    }
-    return deferreds;
-}
-
-function getAllContributors(repos) {
-    var deferreds = [];
-
-    for (var i = 0; i < repos.length; i++) {
-        console.log("getting repo contributors", repos[i], i);
-        deferreds.push(
-            $.get(baseUrl + "/repos/" + repos[i].full_name + "/stats/contributors", function(data, status, req) {
-                if (status !== "success") {
-                    console.log("!success", status);
-                    return;
-                }
-                return data;
-            })
-        );
-    }
-    return deferreds;
-}
-
-
-// waits until we get ajax responses for all language datas
-function fetchAndSetLanguages(repos) {
-    var languageDatas = getAllLanguages(repos);
-    // var contributorsData = getAllContributors(repos);
-
-    $.when.apply(null, languageDatas).done(function() {
-        for (i in languageDatas) {
-            allRepos[i]["languages_data"] = languageDatas[i].responseJSON; // sure these in right order?? think so cuz promise
-        }
-    })
-
-    // .then(function () {
-
-    // $.when.apply(null, contributorsData).done(function() {
-    //     for (i in contributorsData) {
-    //         allRepos[i]["contributors"] = contributorsData[i];
-    //     }
-    //     localStorage.setItem("repos", JSON.stringify(allRepos));
-    //     console.log(JSON.parse(localStorage.getItem("repos")));
-    //     gotRepos(allRepos);
-    // });
-
-    // })
-    ;
-}
-
-function fetchRepos(path) {
-    return $.get(baseUrl + path).then(ensureGetAllAndSave).done(function() {
-        fetchAndSetLanguages(getStoredRepos());
-    });
-};
-
-function getStoredRepos() {
-    return JSON.parse(localStorage.getItem("repos"));
-}
-
-$(function() {
-    // query github api for all repos for rb if they're not stored already
-    if (!getStoredRepos()) {
-
-        console.log("no stored repos. grabbing em.");
-        fetchRepos("/orgs/rotblauer/repos"); //calls gotRepos(allRepos) on completion
-
-    } else {
-        allRepos = JSON.parse(localStorage.getItem("repos"));
-        console.log("have stored repos", allRepos.length);
-        // fetchRepos("/orgs/rotblauer/repos");
-        // fetchAndSetLanguages(allRepos);
-        gotRepos(allRepos);
-    }
-
-});
-
 function drawRepoLegos(repos) {
     console.log("drawing legos", repos, repos.length);
 
@@ -391,6 +245,7 @@ function drawShootsAndLadders(repos) {
 }
 
 function drawRepoStacks(repos) {
+    console.log("drwaing stacks", repos);
     var box = d3.select("#stacks");
 
     var width = box.node().getBoundingClientRect().width;
@@ -564,9 +419,8 @@ function tallyRepoLanguageBytes(repos) {
 }
 
 function gotRepos(repos) {
-    console.log("have got repos", repos);
     // sort by most recent on top
-    sorted = _.sortBy(allRepos, function(o) {
+    sorted = _.sortBy(repos, function(o) {
         var dt = new Date(o.updated_at);
         return -dt;
     });
@@ -579,5 +433,30 @@ function gotRepos(repos) {
     // drawLanguageBar(sorted);
     // drawSteppingStones(sorted);
     // drawShootsAndLadders(sorted);
-    drawRepoStacks(sorted);
+    // drawRepoStacks(sorted);
 }
+
+
+$(function() {
+    // query github api for all repos for rb if they're not stored already
+    var r = getSavedRepos();
+    if (!r) {
+
+        console.log("No stored repos. Grabbing em.");
+        fetchRepos("/orgs/rotblauer/repos")
+            .then(function() {
+                console.log("finished getting everything");
+                // showLocalRepos();
+                gotRepos(getSavedRepos());
+            });
+
+    } else {
+
+        // console.log("Have repos locally.");
+        // console.dir(r);
+
+        gotRepos(r);
+
+    }
+
+});
