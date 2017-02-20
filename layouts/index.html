@@ -25,55 +25,38 @@
         </div>
     </div>
 
-<div class="row" style="height: 70vh; margin:0; padding:0;background-color: rgb(204,218,219);">
+    <div class="row" style="height: 70vh; margin:0; padding:0;background-color: rgb(204,218,219);">
 
-  <div class="col-10 offset-1 p-3 " style="margin-top: -20vh; height: 100%; background-color: transparent;">
-    <div class="h3 text-center" style="color: gold;">
-      We're here. <sup><small> Hi Mom! Hi Dad!</small></sup>
+        <div class="col-10 offset-1 p-3 " style="margin-top: -20vh; height: 100%; background-color: transparent;">
+            <div class="h3 text-center" style="color: gold;">
+                We're here. <sup><small> Hi Mom! Hi Dad!</small></sup>
+            </div>
+
+            <iframe frameborder="0" style="border: 20px solid gold;" height="100%" width="100%" src="http://punktlich.rotblauer.com"></iframe>
+            <p class="lead text-center mt-3" style="color: rgb(67,53,47);">
+                Mapping <em id="number-of-cattracks">81,358</em>&nbsp; {{ ":paw_prints:" | emojify }}&nbsp; and counting. Go full frame at <a href="http://punktlich.rotblauer.com" target="_blank">punktlich.rotblauer.com <sup><i class="octicon octicon-link-external"></i> </sup></a>
+            </p>
+        </div>
+
     </div>
 
-  <iframe frameborder="0" style="border: 20px solid gold;" height="100%" width="100%" src="http://punktlich.rotblauer.com"></iframe>
-  <p class="lead text-center mt-3" style="color: rgb(67,53,47);">
-    Mapping <em id="number-of-cattracks">81,358</em>&nbsp; {{ ":paw_prints:" | emojify }}&nbsp; and counting. Go full frame at <a href="http://punktlich.rotblauer.com" target="_blank">punktlich.rotblauer.com <sup><i class="octicon octicon-link-external"></i> </sup></a>
-  </p>
-  </div>
+    <div class="row my-3">
+        <div class="container my-3">
+            {{ partial "github-dots-graph.html" . }}
+        </div>
+    </div>
 
-</div>
-
-<div class="row my-3">
-  <div class="container my-3">
-    {{ partial "github-dots-graph.html" . }} 
-  </div>
-</div>
-
-<!-- <script> -->
-<!-- $.get("http://track.areteh.co:3001/api/race", function (data, status, body) { -->
-<!-- if (status !== "success") { console.log(status); return; } -->
-<!-- $("#number-of-cattracks").html(data.all.team.count); -->
-<!-- }); -->
-<!-- </script> -->
-
-<!-- <div class="row text-center text-info pt-3 mt-2">
-     <div class="col">
-     <i class="mega-octicon octicon-book"></i><br/> Portfolio
-     </div>
-     <div class="col text-muted">
-
-     <i class="mega-octicon octicon-mark-github"></i><br/> On Github
-     </div>
-     </div>
+    <!-- <script> -->
+    <!-- $.get("http://track.areteh.co:3001/api/race", function (data, status, body) { -->
+    <!-- if (status !== "success") { console.log(status); return; } -->
+    <!-- $("#number-of-cattracks").html(data.all.team.count); -->
+    <!-- }); -->
+    <!-- </script> -->
 
 
-     </div>
-     <div class="container-fluid">
-
-     <div class="row text-center text-muted py-3 my-3">
-     <div class="col">
-     <i class="mega-octicon octicon-mark-github"></i><br/> Rotblauer on Github
-     </div>
-     </div>
-     </div>
-
-
-   -->
-{{ partial "footer.html" .}}
+    <div class="row text-center text-info pt-3" style="margin-top: 50px;">
+        <div class="col">
+            <i class="mega-octicon octicon-book"></i><br/> Portfolio
+        </div>
+    </div>
+    {{ partial "portfolio.html" . }} {{ partial "footer.html" .}}

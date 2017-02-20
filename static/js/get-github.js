@@ -166,35 +166,50 @@ function getAllContributors(repos) {
     return deferreds;
 }
 
-// gets repos from github
-// return promise
-function fetchRepos(path, cb) {
-    return downloadAllRepos(baseUrl + path)
-        .then(function() {
-            console.log("finished downloading repos", getSavedRepos());
-        })
-        .then(fetchLanguages);
-        // .then(getSavedRepoContributorStats);
-};
+function setRecentStamp() {
+    localStorage.setItem("repos_last_updated", new Date().getTime().toString() );
+}
 
-function recentIsRecent(datey) {
-    if (datey === null) { return false; }
-    var d = Date.now();
-    var seconds = (d - Date.parse(datey)) / 1000;
-    // if within last 36 hours
-    if (seconds > 36*60*60) { return false; }
+// return true or false if repos have been update recently
+function dataIsRecent() {
+    var recent_stamp = localStorage.getItem("repos_last_updated");
+    if (recent_stamp === null) {
+        console.log("No time stamp. Updating repos.");
+        return false;
+    }
+
+    var tnow = new Date();
+    var then = new Date(+recent_stamp);
+    // 36 hours * 60 minutes * 60 seconds * 1000 milliseconds
+    var timeAgoMilliseconds = ( tnow.getTime() - then.getTime() );
+    if ( timeAgoMilliseconds > 36*60*60*1000) {
+        console.log("Last updated ", + timeAgoMilliseconds / ( 60*60*1000 ) + " hours ago. Too long! Updating...")
+        return false;
+    }
+
+    console.log("Last updated " + timeAgoMilliseconds / ( 60*60*1000 ) + " hours ago. Recent enough.");
     return true;
+}
+
+function ensureLanguages(repos) {
+    var deferred = $.Deferred();
+    if (repos[0].languages_data) {
+        console.log("First repo has languages data. Not fetching.");
+        deferred.resolve(repos);
+    } else {
+        fetchLanguages(repos)
+            .then(function (repos) {
+                deferred.resolve(repos);
+            });
+    }
+    return deferred.promise();
 }
 
 function fetchOrGetRepos(path) {
     var defer = $.Deferred();
     var r = getSavedRepos();
-    var recent = localStorage.getItem("repos_last_updated");
-    console.log(typeof(recent));
-    console.log(recent);
 
-    // if (r && ( recent !== null ) && recentIsRecent(( recent ))) {
-    if (r) {
+    if (r && dataIsRecent()) {
         console.log("Using repos stored locally.");
         defer.resolve(r);
     } else {
@@ -202,13 +217,12 @@ function fetchOrGetRepos(path) {
             .progress(function (repoCount) {
                 console.log("Downloaded " + repoCount + " repo(s) so far...");
             })
-            .success(function onSuccess (d) {
-                var day = Date.now();
-                console.log(day);
-                localStorage.setItem("repos_last_updated", day.toString() );
+            .then(ensureLanguages)
+            .then(function (d) {
+                setRecentStamp();
                 defer.resolve(d);
             })
-            .failure(function (data, status, req) {
+            .fail(function (data, status, req) {
                 console.log(data, status, req);
                 defer.reject(data, status, req);
             });

@@ -1,14 +1,5 @@
 
 fetchOrGetRepos("/orgs/rotblauer/repos")
-    .then(function(repos) {
-        if (repos[0].languages_data) {
-            var d = $.Deferred();
-            console.log("First repo has languages data. Not fetching.");
-            d.resolve(repos);
-            return d.promise();
-        }
-        return fetchLanguages(repos);
-    })
     .then(drawGithubDots);
 
 
