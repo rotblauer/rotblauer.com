@@ -1,22 +1,21 @@
-
-
 fetchOrGetRepos("/orgs/rotblauer/repos")
     .then(drawAster);
-
 
 var width = 500,
     height = 500,
     radius = Math.min(width, height) / 2,
     innerRadius = 0;
-    // innerRadius = 0.3 * radius;
+// innerRadius = 0.3 * radius;
 
 var pie = d3.pie()
     .sort(null)
-    .value(function(d) { return d.width; });
+    .value(function(d) {
+        return d.width;
+    });
 
 var outlineArc = d3.arc()
-        .innerRadius(innerRadius)
-        .outerRadius(radius);
+    .innerRadius(innerRadius)
+    .outerRadius(radius);
 
 var svg = d3.select("#github-aster").append("svg")
     .attr("width", width)
@@ -60,12 +59,11 @@ function tallyRepoLanguageBytes(repos) {
         languageByteCount.push(languages_bytes_master[i]);
     }
     // sort by most used by count
-    languageByteCount = _.sortBy(languageByteCount, function (o) {
-        return -o.weight; // weight for heaviest BYTES
+    languageByteCount = _.sortBy(languageByteCount, function(o) {
+        return -o.weight; // weight for heaviest BYTES, score for most occurences of language in repos
     })
     return languageByteCount;
 }
-
 
 // "id","order","score","weight","color","label"
 // "FIS",1.1,59,0.5,"#9E0041","Fisheries"
@@ -93,61 +91,62 @@ function getLanguageColor(d) {
 }
 
 // takes (repos) in and formats for languages by that
-function drawAster (repos) {
+function drawAster(repos) {
 
     var data = tallyRepoLanguageBytes(repos);
 
     data.forEach(function(d) {
-        d.id     =  d.id;
-        d.order  = +d.order;
-        d.color  =  d.color;
+        d.id = d.id;
+        d.order = +d.order;
+        d.color = d.color;
         d.weight = +d.weight;
-        d.score  = +d.score;
-        d.width  = +d.weight;
-        d.label  =  d.label;
+        d.score = +d.score;
+        d.width = +d.weight;
+        d.label = d.label;
     });
 
+    // define functions for how much radius for each arc.
     var arc = d3.arc()
-            .innerRadius(innerRadius)
-            .outerRadius(function (d) {
-                console.log(d);
-                //find proportion of max bytes to outer radius hardcoded val
-                return (radius - innerRadius) * (d.data.score / _.max(data, function (o) { return o.score; }).score ) + innerRadius;
-            });
+        .innerRadius(innerRadius)
+        .outerRadius(function(d) {
+            //find proportion of max bytes to outer radius hardcoded val
+            return (radius - innerRadius) * (d.data.score / _.max(data, function(o) {
+                return o.score;
+            }).score) + innerRadius;
+        });
 
+    var svgLocation = document.getElementById("github-aster").getBoundingClientRect();
+    // the tooltip div
+    var div = d3.select("#github-aster").append("div")
+        .attr("class", "tooltip")
+        .style("opacity", 0);
 
-  var path = svg.selectAll(".solidArc")
-      .data(pie(data))
-    .enter().append("path")
-      .attr("fill", function(d) { return d.data.color; })
-      .attr("class", "solidArc")
-      // .attr("stroke", "gray")
-          .attr("d", arc);
+    // draw the colored arcs
+    var path = svg.selectAll(".solidArc")
+        .data(pie(data))
+        .enter().append("path")
+        .attr("fill", function(d) {
+            return d.data.color;
+        })
+        .attr("class", "solidArc")
+        .attr("d", arc)
 
-  var outerPath = svg.selectAll(".outlineArc")
-      .data(pie(data))
-    .enter().append("path")
-      .attr("fill", "none")
-      .attr("stroke", "none")
-      .attr("class", "outlineArc")
-      .attr("d", outlineArc);
-
-
-  // calculate the weighted mean score
-    var score = data.length;
-
-    // data.reduce(function(a, b) {
-    //   //console.log('a:' + a + ', b.score: ' + b.score + ', b.weight: ' + b.weight);
-    //   return a + (b.score * b.weight);
-    // }, 0) /
-    // data.reduce(function(a, b) {
-    //   return a + b.weight;
-    // }, 0);
-
-  // svg.append("svg:text")
-  //   .attr("class", "aster-score")
-  //   .attr("dy", ".35em")
-  //   .attr("text-anchor", "middle") // text-align: right
-  //   .text(Math.round(score));
+    // sets up tooltippers
+    .on("mouseover", function(d) {
+            div.transition()
+                .duration(200)
+                .style("opacity", 1);
+            div.html((d.data.label) + "<br/>" + d.data.score + " repos <br/>" + Humanize.fileSize(d.data.weight))
+                // .style("top", (d3.event.pageY) + "px")
+                // .style("left", (d3.event.pageX) + "px")
+                .style("top", svgLocation.offsetTop)
+                .style("left", svgLocation.left)
+                .style("background-color", d.data.color);
+        })
+        .on("mouseout", function(d) {
+            div.transition()
+                .duration(500)
+                .style("opacity", 0);
+        });;
 
 }
