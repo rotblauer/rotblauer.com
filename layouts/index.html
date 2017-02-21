@@ -40,23 +40,44 @@
 
     </div>
 
-    <div class="row my-3">
-        <div class="container my-3">
-            {{ partial "github-dots-graph.html" . }}
-        </div>
+    <div class="row my-3 text-center">
+      <div class="col-12 my-3">
+        <h3 class="">
+          <a href="https://github.com/rotblauer" style="color: #333333;">
+            <i class="mega-octicon octicon-mark-github"></i>/rotblauer
+          </a>
+        </h3>
+      </div>
     </div>
 
-    <!-- <script> -->
-    <!-- $.get("http://track.areteh.co:3001/api/race", function (data, status, body) { -->
-    <!-- if (status !== "success") { console.log(status); return; } -->
-    <!-- $("#number-of-cattracks").html(data.all.team.count); -->
-    <!-- }); -->
-    <!-- </script> -->
+    <div class="container">
+    <div class="row  my-3" style="height: 80vh;">
 
+                <div class="col-3 text-center">
+                    <em class="text-muted">
+                        Languages by repo in aggregate.
+                    </em>
+                </div>
+                <div class="col-9 text-center">
+                    <em class="text-muted">
+                        10 most recently updated.
+                    </em>
+                </div>
+                <div class="col-3" style="height: 50%;">
+                    {{ partial "github-aster.html" . }}
+                </div>
+                <div class="col-9" style="height: 100%;">
+                    {{ partial "github-dots-graph.html" . }}
+                </div>
+    </div>
+    </div>
 
-    <div class="row text-center text-info pt-3" style="margin-top: 50px;">
+    <div class="container">
+      
+    <div class="row text-center text-info" style="margin-top: 150px; padding-top: 50px;border-top: 3px dashed lightgray;">
         <div class="col">
             <i class="mega-octicon octicon-book"></i><br/> Portfolio
         </div>
+    </div>
     </div>
     {{ partial "portfolio.html" . }} {{ partial "footer.html" .}}

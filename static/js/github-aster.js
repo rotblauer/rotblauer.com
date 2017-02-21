@@ -1,8 +1,10 @@
-fetchOrGetRepos("/orgs/rotblauer/repos")
+fetchOrGetRepos("/orgs/rotblauer/repos") //"/users/whilei/repos"
     .then(drawAster);
 
-var width = 500,
-    height = 500,
+var box = document.getElementById("github-aster");
+var boxDims = box.getBoundingClientRect();
+var width = boxDims.width,
+    height = boxDims.height,
     radius = Math.min(width, height) / 2,
     innerRadius = 0;
 // innerRadius = 0.3 * radius;
@@ -25,7 +27,7 @@ var svg = d3.select("#github-aster").append("svg")
 
 // arg: repos
 // returns: [{name: "Go", count: 100}, {name:"Javascript", count:40}, {}...]
-function tallyRepoLanguageBytes(repos) {
+function tallyRepoLanguagesAster(repos) {
     var languages_bytes_master = {};
     var languageByteCount = []; //return this one
 
@@ -34,22 +36,42 @@ function tallyRepoLanguageBytes(repos) {
     // sums each language
     _.each(repos, function(o) {
         // console.log(o);
-        for (i in o.languages_data) {
-            // console.log(i, o.languages_data[i]);
+        console.log(o);
+        if (o.languages_data) {
+            for (i in o.languages_data) {
+                // console.log(i, o.languages_data[i]);
 
+                // i is "Go", o.languages_data[i] is 2042312bytes
+                if (!languages_bytes_master[i]) {
+                    languages_bytes_master[i] = {
+                        id: i,
+                        score: 1, // counter how many repos have this language
+                        weight: o.languages_data[i], // bytes
+                        color: getLanguageColor(i),
+                        label: i
+                    };
+                } else {
+                    languages_bytes_master[i].score += 1;
+                    languages_bytes_master[i].weight += o.languages_data[i];
+                }
+            }
+
+            // didn't couldn't wouldn't don't have array, just normal data
+        } else {
             // i is "Go", o.languages_data[i] is 2042312bytes
-            if (!languages_bytes_master[i]) {
-                languages_bytes_master[i] = {
-                    id: i,
+            if (!languages_bytes_master[o.language]) {
+                languages_bytes_master[o.language] = {
+                    id: o.language,
                     score: 1, // counter how many repos have this language
-                    weight: o.languages_data[i], // bytes
-                    color: getLanguageColor(i),
-                    label: i
+                    weight: o.size, // bytes
+                    color: getLanguageColor(o.language),
+                    label: o.language
                 };
             } else {
-                languages_bytes_master[i].score += 1;
-                languages_bytes_master[i].weight += o.languages_data[i];
+                languages_bytes_master[o.language].score += 1;
+                languages_bytes_master[o.language].weight += o.size;
             }
+
         }
     });
 
@@ -93,7 +115,7 @@ function getLanguageColor(d) {
 // takes (repos) in and formats for languages by that
 function drawAster(repos) {
 
-    var data = tallyRepoLanguageBytes(repos);
+    var data = tallyRepoLanguagesAster(repos);
 
     data.forEach(function(d) {
         d.id = d.id;
@@ -139,8 +161,8 @@ function drawAster(repos) {
             div.html((d.data.label) + "<br/>" + d.data.score + " repos <br/>" + Humanize.fileSize(d.data.weight))
                 // .style("top", (d3.event.pageY) + "px")
                 // .style("left", (d3.event.pageX) + "px")
-                .style("top", svgLocation.offsetTop)
-                .style("left", svgLocation.left)
+                .style("top", 0 + "px")
+                .style("left", 0 + "px")
                 .style("background-color", d.data.color);
         })
         .on("mouseout", function(d) {

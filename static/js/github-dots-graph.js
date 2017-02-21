@@ -54,17 +54,18 @@ function drawGithubDots(repos) {
 
     var margin = {
             top: 50,
-            right: 20,
+            right: 0,
             bottom: 20,
-            left: 50
+            left: 0
         },
         width = box.node().getBoundingClientRect().width,
         height = box.node().getBoundingClientRect().height;
 
     var repos = _.sortBy(repos, function(o) {
             return -(new Date(o.updated_at));
-        }),
-        languages = _.sortBy(tallyRepoLanguageBytes(repos), function(o) {
+    }).slice(0,10);
+
+    var languages = _.sortBy(tallyRepoLanguageBytes(repos), function(o) {
             return -o.count;
         });
     // repos mapped to each count on each language
@@ -109,7 +110,10 @@ function drawGithubDots(repos) {
     var rMax = function () {
         var availableWidth = width*0.8 - margin.left - margin.right;
         var availableHeight = height - margin.top - margin.bottom;
-        return ( availableWidth < availableHeight ? availableWidth / uniqueLanguageNames.length : availableHeight / repos.length ) / 2;
+        var wPer = availableWidth / uniqueLanguageNames.length;
+        var hPer = availableHeight / repos.length;
+        console.log("h/w", wPer, hPer);
+        return ( wPer < hPer ? wPer : hPer ) / 2;
     };
     // z min lang -> max lang counts
     var rScale = d3.scaleLog()

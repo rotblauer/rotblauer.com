@@ -6,21 +6,21 @@ function syntaxHighlight(json) {
         json = JSON.stringify(json, undefined, 4);
     }
     json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-    return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+    return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function(match) {
         var cls = 'number';
         if (/^"/.test(match)) {
-    if (/:$/.test(match)) {
-        cls = 'key';
-    } else {
-        cls = 'string';
-    }
-} else if (/true|false/.test(match)) {
-    cls = 'boolean';
-} else if (/null/.test(match)) {
-    cls = 'null';
-}
-return '<span class="' + cls + '">' + match + '</span>';
-});
+            if (/:$/.test(match)) {
+                cls = 'key';
+            } else {
+                cls = 'string';
+            }
+        } else if (/true|false/.test(match)) {
+            cls = 'boolean';
+        } else if (/null/.test(match)) {
+            cls = 'null';
+        }
+        return '<span class="' + cls + '">' + match + '</span>';
+    });
 }
 
 /*
@@ -52,20 +52,18 @@ function parseLinkHeader(header) {
 }
 
 // save n repos to localstorage
-function saveRepos(repos) {
-    return localStorage.setItem("repos", JSON.stringify(repos));
+// they are saved by their full url
+function saveRepos(uri, repos) {
+    return localStorage.setItem(uri, JSON.stringify(repos));
 }
 
 // gets repos from localstorage
-function getSavedRepos() {
-    return JSON.parse(localStorage.getItem("repos"));
+function getSavedRepos(uri) {
+    return JSON.parse(localStorage.getItem(uri));
 }
 
-function showLocalRepos() {
-    $("#repos-preview").html(syntaxHighlight(getSavedRepos().slice(0,2)));
-}
-
-function downloadAllRepos(path) {
+function downloadAllRepos(base, path) {
+    var url = base + path;
     var deferred = $.Deferred(),
         repos = [];
 
@@ -85,7 +83,7 @@ function downloadAllRepos(path) {
         }
 
         // save to localStorage
-        saveRepos(repos);
+        saveRepos(path, repos);
 
         deferred.notify(repos.length);
 
@@ -98,10 +96,10 @@ function downloadAllRepos(path) {
         }
     }
 
-    function getPage(path) {
-        $.get(path, receivedReposPage);
+    function getPage(u) {
+        $.get(u, receivedReposPage);
     }
-    getPage(path);
+    getPage(url);
 
     return deferred.promise();
 }
@@ -113,7 +111,6 @@ function fetchLanguages(repos) {
         for (var i = 0; i < languageDatas.length; i++) {
             repos[i]["languages_data"] = languageDatas[i].responseJSON; // sure these in right order?? think so cuz promise
         }
-        saveRepos(repos);
         return repos;
     });
 }
@@ -166,13 +163,13 @@ function getAllContributors(repos) {
     return deferreds;
 }
 
-function setRecentStamp() {
-    localStorage.setItem("repos_last_updated", new Date().getTime().toString() );
+function setRecentStamp(path) {
+    localStorage.setItem(path + "_updated", new Date().getTime().toString());
 }
 
 // return true or false if repos have been update recently
-function dataIsRecent() {
-    var recent_stamp = localStorage.getItem("repos_last_updated");
+function dataIsRecent(path) {
+    var recent_stamp = localStorage.getItem(path + "_updated");
     if (recent_stamp === null) {
         console.log("No time stamp. Updating repos.");
         return false;
@@ -181,13 +178,13 @@ function dataIsRecent() {
     var tnow = new Date();
     var then = new Date(+recent_stamp);
     // 36 hours * 60 minutes * 60 seconds * 1000 milliseconds
-    var timeAgoMilliseconds = ( tnow.getTime() - then.getTime() );
-    if ( timeAgoMilliseconds > 36*60*60*1000) {
-        console.log("Last updated ", + timeAgoMilliseconds / ( 60*60*1000 ) + " hours ago. Too long! Updating...")
+    var timeAgoMilliseconds = (tnow.getTime() - then.getTime());
+    if (timeAgoMilliseconds > 36 * 60 * 60 * 1000) {
+        console.log("Last updated ", +timeAgoMilliseconds / (60 * 60 * 1000) + " hours ago. Too long! Updating...")
         return false;
     }
 
-    console.log("Last updated " + timeAgoMilliseconds / ( 60*60*1000 ) + " hours ago. Recent enough.");
+    console.log("Last updated " + timeAgoMilliseconds / (60 * 60 * 1000) + " hours ago. Recent enough.");
     return true;
 }
 
@@ -198,31 +195,37 @@ function ensureLanguages(repos) {
         deferred.resolve(repos);
     } else {
         fetchLanguages(repos)
-            .then(function (repos) {
+            .then(function(repos) {
                 deferred.resolve(repos);
             });
     }
     return deferred.promise();
 }
 
+// "/orgs/rotblauer/repos"
+// localStorage savers will save under this key, too
 function fetchOrGetRepos(path) {
     var defer = $.Deferred();
-    var r = getSavedRepos();
+    var r = getSavedRepos(path);
 
-    if (r && dataIsRecent()) {
+    if (r && dataIsRecent(path)) {
         console.log("Using repos stored locally.");
         defer.resolve(r);
     } else {
-        downloadAllRepos(baseUrl + path)
-            .progress(function (repoCount) {
+        downloadAllRepos(baseUrl, path)
+            .progress(function(repoCount) {
                 console.log("Downloaded " + repoCount + " repo(s) so far...");
             })
             .then(ensureLanguages)
-            .then(function (d) {
-                setRecentStamp();
-                defer.resolve(d);
+            .then(function(repos) {
+                saveRepos(path, repos);
+                return repos;
             })
-            .fail(function (data, status, req) {
+            .then(function(repos) {
+                setRecentStamp(path);
+                defer.resolve(repos);
+            })
+            .fail(function(data, status, req) {
                 console.log(data, status, req);
                 defer.reject(data, status, req);
             });
@@ -230,7 +233,3 @@ function fetchOrGetRepos(path) {
 
     return defer.promise();
 }
-// "/orgs/rotblauer/repos"
-
-
-
