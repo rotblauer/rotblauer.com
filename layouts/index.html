@@ -3,7 +3,7 @@
 
     <div class="cover">
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-lg-6">
                 <div class="text-content">
                     <h1><span>Rotblauer && Co.</span></h1>
                     <p class="lead"><span class="pitch">It's like a startup.</span> <span class="about">We make art, build tech, and do science.</span>
@@ -18,27 +18,31 @@
 
                 </div>
             </div>
-            <div class="col-sm-6">
-                <div class="text-content-right hidden-xs-down">
-                </div>
+            <div class="col-lg-6" style="height:60vh; padding-top: 2vh;">
+                <!-- <div class="text-content-right hidden-xs-down">
+                </div> -->
+                <div class="h2" style="color: gold; font-weight: bolder;">
+                        We're here:
+                    </div>
+        
+                    <iframe frameborder="0" style="border: 20px solid gold;" height="100%" width="100%" src="http://punktlich.rotblauer.com"></iframe>
+                    <p class="lead text-center mt-3" 
+                    style="color: white; background-color: darkslategray;"
+                    >
+                        
+                        Mapping <em id="number-of-cattracks">81,358</em>&nbsp; {{ ":paw_prints:" | emojify }}&nbsp; and counting. <br> Go full frame at <a href="http://punktlich.rotblauer.com" target="_blank" style="color: lightblue;">punktlich.rotblauer.com</a>
+                    </p>
             </div>
         </div>
     </div>
 
-    <div class="row" style="height: 70vh; margin:0; padding:0;background-color: rgb(204,218,219);">
+    <!-- <div class="row" style="height: 120vh; margin:0; padding:0;background-color: rgb(204,218,219);">
 
-        <div class="col-10 offset-1 p-3 " style="margin-top: -20vh; height: 100%; background-color: transparent;">
-            <div class="h3 text-center" style="color: gold;">
-                We're here. <sup><small> Hi Mom! Hi Dad!</small></sup>
-            </div>
-
-            <iframe frameborder="0" style="border: 20px solid gold;" height="100%" width="100%" src="http://punktlich.rotblauer.com"></iframe>
-            <p class="lead text-center mt-3" style="color: rgb(67,53,47);">
-                Mapping <em id="number-of-cattracks">81,358</em>&nbsp; {{ ":paw_prints:" | emojify }}&nbsp; and counting. Go full frame at <a href="http://punktlich.rotblauer.com" target="_blank">punktlich.rotblauer.com <sup><i class="octicon octicon-link-external"></i> </sup></a>
-            </p>
+        <div class="col-6 offset-4 p-3 " style="margin-top: -60vh; height: 100%; background-color: transparent;">
+           
         </div>
 
-    </div>
+    </div> -->
 
     <div class="row my-3 text-center">
       <div class="col-12 my-3">
@@ -50,7 +54,7 @@
       </div>
     </div>
 
-    <div class="container">
+    <!-- <div class="container">
     <div class="row  my-3" style="height: 80vh;">
 
                 <div class="col-3 text-center">
@@ -70,14 +74,30 @@
                     {{ partial "github-dots-graph.html" . }}
                 </div>
     </div>
-    </div>
+    </div> -->
 
     <div class="container">
       
-    <div class="row text-center text-info" style="margin-top: 150px; padding-top: 50px;border-top: 3px dashed lightgray;">
+    <div class="row text-center text-info" style="padding-top: 50px;">
         <div class="col">
             <i class="mega-octicon octicon-book"></i><br/> Portfolio
         </div>
     </div>
     </div>
     {{ partial "portfolio.html" . }} {{ partial "footer.html" .}}
+
+    <script>
+            $.ajax({ 
+                type: 'GET',
+                url: 'http://track.areteh.co:3001/metadata',
+                dataType: 'json', 
+                success: function(data) { 
+                    console.log(data);
+                    // {"KeyN":3441161,"LastUpdatedAt":"2018-04-20T11:05:28.194001962-07:00","LastUpdatedBy":"Bigger Papa","LastUpdatedPointsN":84}
+                    // $("#metadata").text(data["KeyN"] + " points | " 
+                    // $("#metadata").text(JSON.stringify(data));
+                    var obj = $("#number-of-cattracks");
+                    obj.text(data["KeyN"].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "");
+                }
+            });
+        </script>
